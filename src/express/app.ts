@@ -1,6 +1,8 @@
 import express, { Application, Request, Response } from 'express'
 import morgan from 'morgan'
 
+import SignupRouter from './signup/signup.router'
+
 const app: Application = express()
 
 app.enable('trust proxy')
@@ -15,7 +17,8 @@ app.post('/api/v1/users/login', (req: Request, res: Response) => {
 })
 
 app.post('/api/v1/users/signup', (req: Request, res: Response) => {
-  // TODO
+  const router = SignupRouter.makeDefaultRouter()
+  router.handle(req ,res)
 })
 
 app.post('/api/v1/users/signup/google', (req: Request, res: Response) => {
