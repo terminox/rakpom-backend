@@ -3,6 +3,7 @@ import morgan from 'morgan'
 
 import LoginRouter from './login/login.router'
 import SignupRouter from './signup/signup.router'
+import UserShopsRouter from './shops/shops.router'
 
 const app: Application = express()
 
@@ -15,12 +16,12 @@ app.use(express.json())
 
 app.post('/api/v1/users/login', (req: Request, res: Response) => {
   const router = LoginRouter.makeDefaultRouter()
-  router.handle(req ,res)
+  router.handle(req, res)
 })
 
 app.post('/api/v1/users/signup', (req: Request, res: Response) => {
   const router = SignupRouter.makeDefaultRouter()
-  router.handle(req ,res)
+  router.handle(req, res)
 })
 
 app.post('/api/v1/users/signup/google', (req: Request, res: Response) => {
@@ -47,14 +48,9 @@ app.post('/api/v1/users/booking-requests', (req: Request, res: Response) => {
   // TODO
 })
 
-// MARK: - Shops
-
-app.get('/api/v1/users/shops', (req: Request, res: Response) => {
-  // TODO
-})
-
 app.get('/api/v1/users/shops/pages', (req: Request, res: Response) => {
-  // TODO
+  const router = UserShopsRouter.makeDefaultRouter()
+  router.handle(req, res)
 })
 
 app.get('/api/v1/users/shops/recent', (req: Request, res: Response) => {
@@ -64,6 +60,12 @@ app.get('/api/v1/users/shops/recent', (req: Request, res: Response) => {
 app.get('/api/v1/users/shops/:id', (req: Request, res: Response) => {
   // TODO
 })
+
+app.get('/api/v1/users/shops/:id/reviews', (req: Request, res: Response) => {
+  // TODO
+})
+
+// MARK: - Shops
 
 app.post('/api/v1/shops/login', (req: Request, res: Response) => {
   // TODO
