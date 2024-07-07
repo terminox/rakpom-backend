@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express'
 import morgan from 'morgan'
 
+import LoginRouter from './login/login.router'
 import SignupRouter from './signup/signup.router'
 
 const app: Application = express()
@@ -13,7 +14,8 @@ app.use(express.json())
 // MARK: - Users
 
 app.post('/api/v1/users/login', (req: Request, res: Response) => {
-  // TODO
+  const router = LoginRouter.makeDefaultRouter()
+  router.handle(req ,res)
 })
 
 app.post('/api/v1/users/signup', (req: Request, res: Response) => {

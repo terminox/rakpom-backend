@@ -8,8 +8,8 @@ import sequelize from '../../sequelize/sequelize'
 
 class BcryptHasher implements Hasher {
   async hash(s: string): Promise<HashResult> {
-    const salt: string = bcrypt.genSaltSync(10)
-    const hash: string = bcrypt.hashSync(s, salt)
+    const salt: string = await bcrypt.genSalt(10)
+    const hash: string = await bcrypt.hash(s, salt)
     return { hash, salt }
   }
 }
@@ -26,8 +26,8 @@ export default class SignupRouter {
     try {
       const email: string = req.body.email
       const password: string = req.body.password
-      const credential = await this.controller.signup(email, password)
-      res.status(201).json(credential)
+      const credentials = await this.controller.signup(email, password)
+      res.status(201).json(credentials)
     } catch (err) {
       res.status(400).json({ error: (err as Error).message })
     }
