@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import LoginRouter from './login/login.router'
 import SignupRouter from './signup/signup.router'
 import UserShopsRouter from './shops/shops.router'
+import UserRecentShopsRouter from './recent_shops/shops.router'
 
 const app: Application = express()
 
@@ -54,7 +55,8 @@ app.get('/api/v1/users/shops/pages', (req: Request, res: Response) => {
 })
 
 app.get('/api/v1/users/shops/recent', (req: Request, res: Response) => {
-  // TODO
+  const router = UserRecentShopsRouter.makeDefaultRouter()
+  router.handle(req, res)
 })
 
 app.get('/api/v1/users/shops/:id', (req: Request, res: Response) => {
