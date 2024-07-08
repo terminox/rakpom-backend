@@ -24,9 +24,9 @@ export default class UserShopsRouter {
     }
   }
 
-  static makeDefaultRouter(): ShopsRouter {
+  static makeDefaultRouter(): UserShopsRouter {
     const service = new SequelizeShopListFetchingService(sequelize)
     const controller = new UserShopsController(service)
-    return new ShopsRouter(controller)
+    return new UserShopsRouter(controller)
   }
 }

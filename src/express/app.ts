@@ -7,6 +7,7 @@ import UserShopsRouter from './shops/shops.router'
 import UserRecentShopsRouter from './recent_shops/shops.router'
 import ShopDetailRouter from './shop_detail/shop_detail.router'
 import ShopReviewsRouter from './shop_reviews/shop_reviews.router'
+import BookingRequestsRouter from './booking_requests/booking_requests.router'
 
 const app: Application = express()
 
@@ -48,7 +49,8 @@ app.patch('/api/v1/users/profiles/:id', (req: Request, res: Response) => {
 })
 
 app.post('/api/v1/users/booking-requests', (req: Request, res: Response) => {
-  // TODO
+  const router = BookingRequestsRouter.makeDefaultRouter()
+  router.handle(req, res)
 })
 
 app.get('/api/v1/users/shops/pages', (req: Request, res: Response) => {
