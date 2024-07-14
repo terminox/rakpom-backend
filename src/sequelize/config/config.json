@@ -1,23 +1,30 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "database_development",
+    "password": "qwerqwerqwer",
+    "database": "rakpom-dev",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "postgres",
+    "password": "1qaz2wsx3edc",
+    "database": "postgres",
+    "host": "35.240.255.177",
+    "dialect": "postgres"
+  },
+  "staging": {
+    "username": "postgres",
+    "password": "1qaz2wsx3edc",
+    "database": "postgres",
+    "host": "35.240.255.177",
+    "dialect": "postgres"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "postgres",
+    "password": "1qaz2wsx3edc",
+    "database": "postgres",
+    "host": "35.240.255.177",
+    "dialect": "postgres"
   }
 }

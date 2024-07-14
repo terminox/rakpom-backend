@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import ShopReviewsController from './shop_reviews.controller'
 import SequelizeShopReviewsFetchingService from './shop_reviews_fetching_service.sequelize'
 
-import sequelize from '../../sequelize/sequelize'
+import sequelize from '../../sequelize'
 
 export default class ShopReviewsRouter {
     

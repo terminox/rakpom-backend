@@ -5,7 +5,7 @@ import UserLoginController, { LoginValidator, LoginUser } from './login.controll
 import SequelizeUserStore from './login_user_store.sequelize'
 import SequelizeLoginService from './login_service.sequelize'
 
-import sequelize from '../../sequelize/sequelize'
+import sequelize from '../../sequelize'
 
 class BcryptHasher implements LoginValidator {
   async compareUser(user: LoginUser, password: string): Promise<void> {

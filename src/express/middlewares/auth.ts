@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import { Sequelize } from 'sequelize'
 
-import sequelize from '../../sequelize/sequelize'
+import sequelize from '../../sequelize'
 
 class AuthenticationController {
 

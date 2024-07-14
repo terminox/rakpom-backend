@@ -4,8 +4,12 @@ export type SignupPayload = {
   salt: string
 }
 
+export type SignupResult = {
+
+}
+
 export type SignupCredentials = {
-  token: string
+  accessToken: string
 }
 
 export type HashResult = {
@@ -18,23 +22,30 @@ export interface Hasher {
 }
 
 export interface UserStore {
-  storeUser(payload: SignupPayload): Promise<SignupCredentials>
+  storeUser(payload: SignupPayload): Promise<SignupResult>
+}
+
+export interface SignupCredentialEncoder {
+  encode(result: SignupResult): Promise<SignupCredentials>
 }
 
 export default class UserSignupController {
 
   private hasher: Hasher
   private store: UserStore
+  private encoder: SignupCredentialEncoder
 
-  constructor(hasher: Hasher, store: UserStore) {
+  constructor(hasher: Hasher, store: UserStore, encoder: SignupCredentialEncoder) {
     this.hasher = hasher
     this.store = store
+    this.encoder = encoder
   }
 
   async signup(email: string, password: string): Promise<SignupCredentials> {
     const { hash, salt } = await this.hasher.hash(password)
     const payload: SignupPayload = { email, hash, salt }
-    const credentials = await this.store.storeUser(payload)
+    const result = await this.store.storeUser(payload)
+    const credentials = await this.encoder.encode(result)
     return credentials
   }
 }

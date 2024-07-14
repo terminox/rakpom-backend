@@ -4,7 +4,7 @@ import BookingRequestsController from './booking_requests.controller'
 import BookingRequestsPresenter from './booking_requests.presenter'
 import SequelizeBookingRequestCreationService from './booking_request_creation_service.sequelize'
 
-import sequelize from '../../sequelize/sequelize'
+import sequelize from '../../sequelize'
 
 export default class BookingRequestsRouter {
   

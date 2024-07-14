@@ -1,10 +1,10 @@
 import { Model, DataTypes } from 'sequelize'
 
-import sequelize from './sequelize'
+import sequelize from '.'
 
-class BookingRequest extends Model {}
+class ConfirmedBooking extends Model {}
 
-BookingRequest.init({
+ConfirmedBooking.init({
   userId: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -23,7 +23,7 @@ BookingRequest.init({
   },
 }, {
   sequelize,
-  modelName: 'BookingRequest'
+  modelName: 'ConfirmedBooking'
 })
 
-export default BookingRequest
+export default ConfirmedBooking
