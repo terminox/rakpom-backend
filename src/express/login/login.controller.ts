@@ -3,17 +3,20 @@ export default class UserLoginController {
   private store: LoginUserStore
   private validator: LoginValidator
   private loginService: LoginService
+  private encoder: LoginCredentialEncoder
 
-  constructor(store: LoginUserStore, validator: LoginValidator, loginService: LoginService) {
+  constructor(store: LoginUserStore, validator: LoginValidator, loginService: LoginService, encoder: LoginCredentialEncoder) {
     this.store = store
     this.validator = validator
     this.loginService = loginService
+    this.encoder = encoder
   }
 
   async login(email: string, password: string): Promise<LoginCredentials> {
     const user = await this.store.findUserByEmail(email)
     await this.validator.compareUser(user, password)
-    const credentials = await this.loginService.login(user)
+    const result = await this.loginService.login(user)
+    const credentials = await this.encoder.encodeLoginResult(result)
     return credentials
   }
 }
@@ -27,16 +30,28 @@ export interface LoginValidator {
 }
 
 export interface LoginService {
-  login(user: LoginUser): Promise<LoginCredentials>
+  login(user: LoginUser): Promise<LoginResult>
+}
+
+export interface LoginCredentialEncoder {
+  encodeLoginResult(result: LoginResult): Promise<LoginCredentials>
 }
 
 export type LoginUser = {
-  id: string
   email: string
   hash: string
   salt: string
 }
 
+export type LoginResult = {
+  id: string
+  email: string
+  memberID: string
+  fullName: string | null
+  gender: string | null
+  phoneNumber: string | null
+}
+
 export type LoginCredentials = {
-  token: string
+  accessToken: string
 }

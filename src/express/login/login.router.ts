@@ -6,11 +6,15 @@ import SequelizeUserStore from './login_user_store.sequelize'
 import SequelizeLoginService from './login_service.sequelize'
 
 import sequelize from '../../sequelize'
+import JWTCoder from '../../shared/jwt/coder'
 
 class BcryptHasher implements LoginValidator {
   async compareUser(user: LoginUser, password: string): Promise<void> {
-    const hash: string = await bcrypt.hash(password, user.salt)
-    await bcrypt.compare(hash, user.hash)
+    const result = await bcrypt.compare(password, user.hash)
+
+    if (!result) {
+      throw new Error(`Passwords mismatch`) // TODO
+    }
   }
 }
 
@@ -37,7 +41,8 @@ export default class LoginRouter {
     const hasher = new BcryptHasher()
     const store = new SequelizeUserStore(sequelize)
     const service = new SequelizeLoginService(sequelize)
-    const controller = new UserLoginController(store, hasher, service)
+    const encoder = new JWTCoder()
+    const controller = new UserLoginController(store, hasher, service, encoder)
     return new LoginRouter(controller)
   }
 }

@@ -5,7 +5,7 @@ export type SignupPayload = {
 }
 
 export type SignupResult = {
-
+  // TODO
 }
 
 export type SignupCredentials = {
@@ -26,7 +26,7 @@ export interface UserStore {
 }
 
 export interface SignupCredentialEncoder {
-  encode(result: SignupResult): Promise<SignupCredentials>
+  encodeSignupResult(result: SignupResult): Promise<SignupCredentials>
 }
 
 export default class UserSignupController {
@@ -45,7 +45,7 @@ export default class UserSignupController {
     const { hash, salt } = await this.hasher.hash(password)
     const payload: SignupPayload = { email, hash, salt }
     const result = await this.store.storeUser(payload)
-    const credentials = await this.encoder.encode(result)
+    const credentials = await this.encoder.encodeSignupResult(result)
     return credentials
   }
 }
