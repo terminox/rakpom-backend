@@ -1,6 +1,8 @@
 import express, { Application, Request, Response } from 'express'
 import morgan from 'morgan'
 
+import auth from './middlewares/auth'
+
 import LoginRouter from './login/login.router'
 import SignupRouter from './signup/signup.router'
 import UserShopsRouter from './shops/shops.router'
@@ -53,7 +55,7 @@ app.post('/api/v1/users/booking-requests', (req: Request, res: Response) => {
   router.handle(req, res)
 })
 
-app.get('/api/v1/users/shops/pages', (req: Request, res: Response) => {
+app.get('/api/v1/users/shops/pages', auth, (req: Request, res: Response) => {
   const router = UserShopsRouter.makeDefaultRouter()
   router.handle(req, res)
 })

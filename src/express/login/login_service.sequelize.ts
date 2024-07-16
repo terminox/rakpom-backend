@@ -18,7 +18,7 @@ export default class SequelizeLoginService implements LoginService {
       })
 
       if (profile == null) {
-        throw new Error('') // TODO
+        throw new Error('User profile not found') // TODO
       }
 
       return {

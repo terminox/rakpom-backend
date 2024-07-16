@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from 'express'
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 import { Sequelize } from 'sequelize'
 
 import sequelize from '../../sequelize'
+import UserProfile from '../../sequelize/models/user_profile'
 
 class AuthenticationController {
 
@@ -29,12 +30,21 @@ interface AuthenticationService {
   authenticate(payload: AuthPayload): Promise<AuthenticatedUser>
 }
 
-type AuthPayload = {}
+type AuthPayload = {
+  userID: string
+}
 
-type AuthenticatedUser = {}
+type AuthenticatedUser = {
+  id: string
+  email: string
+  memberID: string
+  fullName: string | null
+  gender: string | null
+  phoneNumber: string | null
+}
 
 export default async function auth(req: Request, res: Response, next: NextFunction) {
-  const token = req.headers.authorization
+  const token = req.headers.authorization?.split(' ')[1]
   if (!token) {
     return res.status(401).json({ error: 'Unauthorized' })
   }
@@ -49,8 +59,9 @@ export default async function auth(req: Request, res: Response, next: NextFuncti
 
 class JWTDecoder implements TokenDecoder {
   async decode(token: string): Promise<AuthPayload> {
-    // TODO
-    return jwt.verify(token, 'secret') as AuthPayload
+    const result = jwt.verify(token, 'secret') as JwtPayload
+    const payload: AuthPayload = { userID: result.data.id }
+    return payload
   }
 }
 
@@ -63,7 +74,20 @@ class SequelizeAuthenticationService implements AuthenticationService {
   }
 
   async authenticate(payload: AuthPayload): Promise<AuthenticatedUser> {
-    // TODO
-    return {}
+    const profile = await UserProfile.findOne({ where: { id: payload.userID } })
+    if (profile == null) {
+      throw new Error('User profile not found') // TODO
+    }
+
+    const user: AuthenticatedUser = {
+      id: profile.id,
+      email: profile.email,
+      memberID: String(profile.memberID),
+      fullName: profile.fullName,
+      gender: profile.gender,
+      phoneNumber: profile.phoneNumber,
+    }
+
+    return user
   }
 }
