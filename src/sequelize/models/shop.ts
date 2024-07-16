@@ -37,6 +37,11 @@ Shop.init({
   },
   coordinatesItemID: {
     type: DataTypes.STRING,
+    allowNull: false,
+    references: {
+      model: ShopCoordinatesItem,
+      key: 'id',
+    }
   },
   phone: {
     type: DataTypes.STRING,
@@ -77,16 +82,6 @@ Shop.init({
 }, {
   sequelize,
   modelName: 'Shop',
-})
-
-Shop.hasOne(ShopCoordinatesItem, {
-  foreignKey: 'shopID',
-  as: 'coordinatesItem',
-})
-
-ShopCoordinatesItem.belongsTo(Shop, {
-  foreignKey: 'shopID',
-  as: 'shop',
 })
 
 export default Shop

@@ -2,6 +2,8 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 
 import sequelize from '..'
 
+import Shop from './shop'
+
 class ShopCoordinatesItem extends Model<InferAttributes<ShopCoordinatesItem>, InferCreationAttributes<ShopCoordinatesItem>> {
   declare id: string
   declare shopID: string
@@ -18,6 +20,10 @@ ShopCoordinatesItem.init({
   shopID: {
     type: DataTypes.STRING,
     allowNull: false,
+    references: {
+      model: Shop,
+      key: 'id',
+    }
   },
   latitude: {
     type: DataTypes.DOUBLE,
