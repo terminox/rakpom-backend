@@ -8,7 +8,7 @@ class BasicAuthItem extends Model<InferAttributes<BasicAuthItem>, InferCreationA
   declare email: string
   declare hash: string
   declare salt: string
-  declare userProfileID: string
+  declare authorizableID: string
 }
 
 BasicAuthItem.init({
@@ -33,7 +33,7 @@ BasicAuthItem.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  userProfileID: {
+  authorizableID: {
     type: DataTypes.STRING,
     allowNull: false,
   } 
@@ -49,7 +49,7 @@ BasicAuthItem.init({
 })
 
 BasicAuthItem.belongsTo(UserProfile, {
-  foreignKey: 'userProfileID',
+  foreignKey: 'authorizableID',
 })
 
 export default BasicAuthItem

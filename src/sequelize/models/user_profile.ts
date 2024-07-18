@@ -29,7 +29,6 @@ UserProfile.init({
     allowNull: false,
     unique: true,
     autoIncrement: true,
-    defaultValue: 5766
   },
   fullName: DataTypes.STRING,
   gender: DataTypes.ENUM('male', 'female'),

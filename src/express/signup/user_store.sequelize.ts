@@ -25,18 +25,26 @@ export default class SequelizeUserStore implements UserStore {
         transaction
       })
   
-      const authItem = await BasicAuthItem.create({
+      await BasicAuthItem.create({
         id: ulid(),
         email: payload.email,
         hash: payload.hash,
         salt: payload.salt,
-        userProfileID: profile.id,
+        authorizableID: profile.id,
       }, {
         transaction
       })
   
       await transaction.commit()
-      return authItem
+
+      return {
+        id: profile.id,
+        email: profile.email,
+        memberID: String(profile.memberID),
+        fullName: profile.fullName,
+        gender: profile.gender,
+        phoneNumber: profile.phoneNumber,
+      }
     } catch (err) {
       await transaction.rollback()
       throw err
