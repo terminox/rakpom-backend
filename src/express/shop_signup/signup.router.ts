@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 
-import UserSignupController, { Hasher, HashResult } from './signup.controller'
-import SequelizeUserStore from './user_store.sequelize'
+import ShopSignupController, { Hasher, HashResult } from './signup.controller'
+import SequelizeShopStore from './shop_store.sequelize'
 
 import sequelize from '../../sequelize'
 import JWTCoder from '../../shared/jwt/coder'
@@ -17,9 +17,9 @@ class BcryptHasher implements Hasher {
 
 export default class SignupRouter {
 
-  private controller: UserSignupController
+  private controller: ShopSignupController
 
-  constructor(controller: UserSignupController) {
+  constructor(controller: ShopSignupController) {
     this.controller = controller
   }
   
@@ -36,9 +36,9 @@ export default class SignupRouter {
 
   static makeDefaultRouter(): SignupRouter {
     const hasher = new BcryptHasher()
-    const store = new SequelizeUserStore(sequelize)
+    const store = new SequelizeShopStore(sequelize)
     const encoder = new JWTCoder()
-    const controller = new UserSignupController(hasher, store, encoder)
+    const controller = new ShopSignupController(hasher, store, encoder)
     return new SignupRouter(controller)
   }
 }

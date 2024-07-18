@@ -1,7 +1,9 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize'
+import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize'
 
 import sequelize from '..'
+
 import UserProfile from './user_profile'
+import Shop from './shop'
 
 class BasicAuthItem extends Model<InferAttributes<BasicAuthItem>, InferCreationAttributes<BasicAuthItem>> {
   declare id: string
@@ -49,6 +51,10 @@ BasicAuthItem.init({
 })
 
 BasicAuthItem.belongsTo(UserProfile, {
+  foreignKey: 'authorizableID',
+})
+
+BasicAuthItem.belongsTo(Shop, {
   foreignKey: 'authorizableID',
 })
 

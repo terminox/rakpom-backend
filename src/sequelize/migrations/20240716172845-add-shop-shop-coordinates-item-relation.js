@@ -16,7 +16,6 @@ module.exports = {
 
         queryInterface.addColumn('Shops', 'coordinatesItemID', {
           type: Sequelize.STRING,
-          allowNull: false,
           references: {
             model: 'ShopCoordinatesItems',
             key: 'id',

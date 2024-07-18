@@ -1,5 +1,7 @@
 import { Router, Request, Response } from 'express'
 
+import SignupRouter from './shop_signup/signup.router'
+
 const router = Router()
 
 router.post('/login', (req: Request, res: Response) => {
@@ -7,7 +9,8 @@ router.post('/login', (req: Request, res: Response) => {
 })
 
 router.post('/signup', (req: Request, res: Response) => {
-  // TODO
+  const router = SignupRouter.makeDefaultRouter()
+  router.handle(req, res)
 })
 
 // router.post('/signup/google', (req: Request, res: Response) => {

@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      userProfileID: {
+      authorizableID: {
         type: Sequelize.STRING,
         allowNull: false,
       },
