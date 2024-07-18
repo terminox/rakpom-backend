@@ -5,7 +5,12 @@ export type SignupPayload = {
 }
 
 export type SignupResult = {
-  // TODO
+  id: string
+  email: string
+  memberID: string
+  fullName: string | null
+  gender: string | null
+  phoneNumber: string | null
 }
 
 export type SignupCredentials = {
