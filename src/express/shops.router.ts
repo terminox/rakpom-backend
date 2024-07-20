@@ -1,7 +1,10 @@
 import { Router, Request, Response } from 'express'
 
+import { shopAuth } from './middlewares/auth'
+
 import LoginRouter from './shop_login/login.router'
 import SignupRouter from './shop_signup/signup.router'
+import ShopProfileRouter from './shop_profile/shop_profile.router'
 
 const router = Router()
 
@@ -27,8 +30,9 @@ router.post('/signup', (req: Request, res: Response) => {
 //   // TODO
 // })
 
-router.get('/profiles/:id', (req: Request, res: Response) => {
-  // TODO
+router.get('/profiles/me', shopAuth, (req: Request, res: Response) => {
+  const router = ShopProfileRouter.makeDefaultRouter()
+  router.handle(req, res)
 })
 
 router.patch('/profiles/:id', (req: Request, res: Response) => {

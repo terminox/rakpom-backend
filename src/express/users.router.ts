@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
 
-import auth from './middlewares/auth'
+import { userAuth } from './middlewares/auth'
 
 import LoginRouter from './login/login.router'
 import SignupRouter from './signup/signup.router'
@@ -34,11 +34,11 @@ router.post('/signup', (req: Request, res: Response) => {
 //   // TODO
 // })
 
-router.get('/profiles/:id', (req: Request, res: Response) => {
+router.get('/profiles/me', userAuth, (req: Request, res: Response) => {
   // TODO
 })
 
-router.patch('/profiles/:id', (req: Request, res: Response) => {
+router.patch('/profiles/me', userAuth, (req: Request, res: Response) => {
   // TODO
 })
 
@@ -47,7 +47,7 @@ router.post('/booking-requests', (req: Request, res: Response) => {
   router.handle(req, res)
 })
 
-router.get('/shops/pages', auth, (req: Request, res: Response) => {
+router.get('/shops/pages', userAuth, (req: Request, res: Response) => {
   const router = UserShopsRouter.makeDefaultRouter()
   router.handle(req, res)
 })
