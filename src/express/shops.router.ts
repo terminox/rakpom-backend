@@ -1,11 +1,13 @@
 import { Router, Request, Response } from 'express'
 
+import LoginRouter from './shop_login/login.router'
 import SignupRouter from './shop_signup/signup.router'
 
 const router = Router()
 
 router.post('/login', (req: Request, res: Response) => {
-  // TODO
+  const router = LoginRouter.makeDefaultRouter()
+  router.handle(req, res)
 })
 
 router.post('/signup', (req: Request, res: Response) => {
