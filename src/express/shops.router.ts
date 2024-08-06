@@ -5,6 +5,7 @@ import { shopAuth } from './middlewares/auth'
 import LoginRouter from './shop_login/login.router'
 import SignupRouter from './shop_signup/signup.router'
 import ShopProfileRouter from './shop_profile/shop_profile.router'
+import ShopProfileUpdateRouter from './shop_profile_update/router'
 
 const router = Router()
 
@@ -35,8 +36,9 @@ router.get('/profiles/me', shopAuth, (req: Request, res: Response) => {
   router.handle(req, res)
 })
 
-router.patch('/profiles/:id', (req: Request, res: Response) => {
-  // TODO
+router.patch('/profiles/me', shopAuth, (req: Request, res: Response) => {
+  const router = ShopProfileUpdateRouter.makeDefaultRouter()
+  router.handle(req, res)
 })
 
 export default router
