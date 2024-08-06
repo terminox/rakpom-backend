@@ -1,10 +1,10 @@
 import { Router, Request, Response } from 'express'
 
-import { userAuth } from './middlewares/auth'
+import { userAuth } from '../middlewares/auth'
 
 import LoginRouter from './login/login.router'
 import SignupRouter from './signup/signup.router'
-import UserShopsRouter from './shops/shops.router'
+import UserShopsRouter from '../shops/shops.router'
 import UserRecentShopsRouter from './recent_shops/shops.router'
 import ShopDetailRouter from './shop_detail/shop_detail.router'
 import ShopReviewsRouter from './shop_reviews/shop_reviews.router'

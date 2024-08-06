@@ -1,32 +1,44 @@
-import { Request, Response } from 'express'
+import { Router, Request, Response } from 'express'
 
-import UserShopsController from './shops.controller'
-import SequelizeShopListFetchingService from './shop_list_fetching_service.sequelize'
+import { shopAuth } from '../middlewares/auth'
 
-import sequelize from '../../sequelize'
+import LoginRouter from './shop_login/login.router'
+import SignupRouter from './shop_signup/signup.router'
+import ShopProfileRouter from './shop_profile/shop_profile.router'
+import ShopProfileUpdateRouter from './shop_profile_update/router'
 
-export default class UserShopsRouter {
-  
-  private controller: UserShopsController 
+const router = Router()
 
-  constructor(controller: UserShopsController) {
-    this.controller = controller
-  }
-  
-  async handle(req: Request, res: Response) {
-    try {
-      const offset: number = parseInt(req.query.offset as string)
-      const limit: number = parseInt(req.query.limit as string)
-      const shops = await this.controller.getShops(offset, limit)
-      res.status(200).json(shops)
-    } catch (err) {
-      res.status(400).json({ error: (err as Error).message })
-    }
-  }
+router.post('/login', (req: Request, res: Response) => {
+  const router = LoginRouter.makeDefaultRouter()
+  router.handle(req, res)
+})
 
-  static makeDefaultRouter(): UserShopsRouter {
-    const service = new SequelizeShopListFetchingService(sequelize)
-    const controller = new UserShopsController(service)
-    return new UserShopsRouter(controller)
-  }
-}
+router.post('/signup', (req: Request, res: Response) => {
+  const router = SignupRouter.makeDefaultRouter()
+  router.handle(req, res)
+})
+
+// router.post('/signup/google', (req: Request, res: Response) => {
+//   // TODO
+// })
+
+// router.post('/signup/line', (req: Request, res: Response) => {
+//   // TODO
+// })
+
+// router.post('/signup/apple', (req: Request, res: Response) => {
+//   // TODO
+// })
+
+router.get('/profiles/me', shopAuth, (req: Request, res: Response) => {
+  const router = ShopProfileRouter.makeDefaultRouter()
+  router.handle(req, res)
+})
+
+router.patch('/profiles/me', shopAuth, (req: Request, res: Response) => {
+  const router = ShopProfileUpdateRouter.makeDefaultRouter()
+  router.handle(req, res)
+})
+
+export default router
