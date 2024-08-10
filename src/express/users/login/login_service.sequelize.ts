@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize'
 
 import { LoginService, LoginUser, LoginResult } from './login.controller'
 
-import UserProfile from '../../sequelize/models/user_profile'
+import UserProfile from '../../../sequelize/models/user_profile'
 
 export default class SequelizeLoginService implements LoginService {
   

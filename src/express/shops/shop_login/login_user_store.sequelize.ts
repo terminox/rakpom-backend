@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize'
 
 import { LoginUserStore, LoginUser } from './login.controller'
 
-import BasicAuthItem from '../../sequelize/models/basic_auth_item'
+import BasicAuthItem from '../../../sequelize/models/basic_auth_item'
 
 export default class SequelizeUserStore implements LoginUserStore {
 

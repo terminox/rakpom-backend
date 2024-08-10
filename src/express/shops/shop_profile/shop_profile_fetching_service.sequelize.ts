@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize'
 
 import { ShopProfileFetchingService, ShopProfile } from './shop_profile.controller'
 
-import Shop from '../../sequelize/models/shop'
+import Shop from '../../../sequelize/models/shop'
 
 export default class SequelizeShopProfileFetchingService implements ShopProfileFetchingService {
   

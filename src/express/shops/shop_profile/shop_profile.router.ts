@@ -3,8 +3,8 @@ import { Request, Response } from 'express'
 import ShopProfileController from './shop_profile.controller'
 import SequelizeShopProfileFetchingService from './shop_profile_fetching_service.sequelize'
 
-import sequelize from '../../sequelize'
-import response from '../../shared/response_object'
+import sequelize from '../../../sequelize'
+import response from '../../../shared/response_object'
 
 export default class ShopProfileRouter {
     

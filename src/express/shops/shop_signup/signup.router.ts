@@ -4,8 +4,8 @@ import bcrypt from 'bcryptjs'
 import ShopSignupController, { Hasher, HashResult } from './signup.controller'
 import SequelizeShopStore from './shop_store.sequelize'
 
-import sequelize from '../../sequelize'
-import JWTCoder from '../../shared/jwt/coder'
+import sequelize from '../../../sequelize'
+import JWTCoder from '../../../shared/jwt/coder'
 
 class BcryptHasher implements Hasher {
   async hash(s: string): Promise<HashResult> {

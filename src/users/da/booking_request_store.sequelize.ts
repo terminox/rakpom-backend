@@ -3,8 +3,8 @@ import { Op } from 'sequelize'
 import BookingRequest from '../../core/models/booking_request'
 import { CreateBookingRequestPayload, BookingRequestStore } from '../use_cases/create_booking_request'
 
-import SequelizeBookingRequest from '../../sequelize/booking_request.sequelize'
-import SequelizeConfirmedBooking from '../../sequelize/confirmed_booking.sequelize'
+import SequelizeBookingRequest from '../../../sequelize/booking_request.sequelize'
+import SequelizeConfirmedBooking from '../../../sequelize/confirmed_booking.sequelize'
 
 class BookingAlreadyExistedError extends Error {
   constructor() {

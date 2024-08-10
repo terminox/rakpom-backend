@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize'
 
 import { ShopProfileUpdatingService, ShopProfileUpdatePayload, ShopProfile } from './controller'
 
-import Shop from '../../sequelize/models/shop'
+import Shop from '../../../sequelize/models/shop'
 
 export default class SequelizeShopProfileUpdatingService implements ShopProfileUpdatingService {
   

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 
-import { LoginCredentialEncoder, LoginResult, LoginCredentials } from '../../express/login/login.controller'
-import { SignupCredentialEncoder, SignupResult, SignupCredentials } from '../../express/signup/signup.controller'
+import { LoginCredentialEncoder, LoginResult, LoginCredentials } from '../../express/users/login/login.controller'
+import { SignupCredentialEncoder, SignupResult, SignupCredentials } from '../../express/users/signup/signup.controller'
 
 export default class JWTCoder implements LoginCredentialEncoder, SignupCredentialEncoder {
   async encodeLoginResult(result: LoginResult): Promise<LoginCredentials> {

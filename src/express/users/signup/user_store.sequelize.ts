@@ -3,8 +3,8 @@ import { ulid } from 'ulid'
 
 import { UserStore, SignupPayload, SignupResult } from './signup.controller'
 
-import BasicAuthItem from '../../sequelize/models/basic_auth_item'
-import UserProfile from '../../sequelize/models/user_profile'
+import BasicAuthItem from '../../../sequelize/models/basic_auth_item'
+import UserProfile from '../../../sequelize/models/user_profile'
 
 export default class SequelizeUserStore implements UserStore {
 

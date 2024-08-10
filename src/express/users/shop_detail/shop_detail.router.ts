@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import ShopDetailController from './shop_detail.controller'
 import SequelizeShopDetailFetchingService from './shop_detail_fetching_service.sequelize'
 
-import sequelize from '../../sequelize'
+import sequelize from '../../../sequelize'
 
 export default class ShopDetailRouter {
     

@@ -3,8 +3,8 @@ import { ulid } from 'ulid'
 
 import { ShopStore, SignupPayload, SignupResult } from './signup.controller'
 
-import BasicAuthItem from '../../sequelize/models/basic_auth_item'
-import Shop from '../../sequelize/models/shop'
+import BasicAuthItem from '../../../sequelize/models/basic_auth_item'
+import Shop from '../../../sequelize/models/shop'
 
 export default class SequelizeShopStore implements ShopStore {
 

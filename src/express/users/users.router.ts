@@ -4,7 +4,7 @@ import { userAuth } from '../middlewares/auth'
 
 import LoginRouter from './login/login.router'
 import SignupRouter from './signup/signup.router'
-import UserShopsRouter from '../shops/shops.router'
+import UserShopsRouter from './shops/shops.router'
 import UserRecentShopsRouter from './recent_shops/shops.router'
 import ShopDetailRouter from './shop_detail/shop_detail.router'
 import ShopReviewsRouter from './shop_reviews/shop_reviews.router'
@@ -42,7 +42,7 @@ router.patch('/profiles/me', userAuth, (req: Request, res: Response) => {
   // TODO
 })
 
-router.post('/booking-requests', (req: Request, res: Response) => {
+router.post('/booking-requests', userAuth, (req: Request, res: Response) => {
   const router = BookingRequestsRouter.makeDefaultRouter()
   router.handle(req, res)
 })

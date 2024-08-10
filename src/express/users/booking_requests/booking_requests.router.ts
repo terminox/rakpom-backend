@@ -4,7 +4,7 @@ import BookingRequestsController from './booking_requests.controller'
 import BookingRequestsPresenter from './booking_requests.presenter'
 import SequelizeBookingRequestCreationService from './booking_request_creation_service.sequelize'
 
-import sequelize from '../../sequelize'
+import sequelize from '../../../sequelize'
 
 export default class BookingRequestsRouter {
   
@@ -16,7 +16,7 @@ export default class BookingRequestsRouter {
   
   async handle(req: Request, res: Response) {
     try {
-      const userID: string = req.body.userID
+      const userID: string = res.locals.user.id 
       const shopID: string = req.body.shopID
       const date: Date = new Date(req.body.date)
       const startHour: number = parseInt(req.body.startHour)
