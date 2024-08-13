@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
+    "username": "postgres",
     "password": "qwerqwerqwer",
-    "database": "rakpom-dev",
-    "host": "127.0.0.1",
+    "database": "staging",
+    "host": "34.142.223.113",
     "dialect": "postgres"
   },
   "test": {
@@ -15,9 +15,9 @@
   },
   "staging": {
     "username": "postgres",
-    "password": "1qaz2wsx3edc",
+    "password": "qwerqwerqwer",
     "database": "postgres",
-    "host": "35.240.255.177",
+    "host": "34.142.223.113",
     "dialect": "postgres"
   },
   "production": {
