@@ -1,12 +1,13 @@
 {
   "name": "rakpom-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.ts",
   "author": "Yossa Bourne <cybercanonx@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/server.ts --env-file=envs/.env.dev",
-    "build": "tsc --project ./"
+    "build": "tsc --project ./",
+    "start": "ts-node ./src/server.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -31,5 +32,8 @@
     "ts-jest": "^29.1.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
