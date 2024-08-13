@@ -1,0 +1,30 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "qwerqwerqwer",
+    "database": "staging",
+    "host": "34.142.223.113",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "1qaz2wsx3edc",
+    "database": "postgres",
+    "host": "35.240.255.177",
+    "dialect": "postgres"
+  },
+  "staging": {
+    "username": "postgres",
+    "password": "qwerqwerqwer",
+    "database": "postgres",
+    "host": "34.142.223.113",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "1qaz2wsx3edc",
+    "database": "postgres",
+    "host": "35.240.255.177",
+    "dialect": "postgres"
+  }
+}
