@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon src/server.ts --env-file=envs/.env.dev",
     "build": "tsc --project ./",
-    "start": "ts-node ./src/server.ts"
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
