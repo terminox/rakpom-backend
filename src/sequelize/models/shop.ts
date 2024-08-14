@@ -2,14 +2,14 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 
 import sequelize from '..'
 
-import ShopCoordinatesItem from './shop_coordinates_item'
+// import ShopCoordinatesItem from './shop_coordinates_item'
 
 class Shop extends Model<InferAttributes<Shop>, InferCreationAttributes<Shop>> {
   declare id: string
   declare shopName: CreationOptional<string>
   declare shopOwnerName: CreationOptional<string>
   // declare coordinates: CreationOptional<string>
-  declare coordinatesItemID: CreationOptional<string>
+  // declare coordinatesItemID: CreationOptional<string>
   declare phone: CreationOptional<string>
   declare bankName: CreationOptional<string>
   declare bankAccountNumber: CreationOptional<string>
@@ -33,13 +33,13 @@ Shop.init({
   shopOwnerName: {
     type: DataTypes.STRING,
   },
-  coordinatesItemID: {
-    type: DataTypes.STRING,
-    references: {
-      model: ShopCoordinatesItem,
-      key: 'id',
-    }
-  },
+  // coordinatesItemID: {
+  //   type: DataTypes.STRING,
+  //   references: {
+  //     model: ShopCoordinatesItem,
+  //     key: 'id',
+  //   }
+  // },
   phone: {
     type: DataTypes.STRING,
   },
