@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "nodemon src/server.ts --env-file=envs/.env.dev",
     "build": "tsc --project ./",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "postinstall": "chmod +x cloud-sql-proxy && ./cloud-sql-proxy rakpom:asia-southeast1:rakpom-postgres --credentials-file ./rakpom-72730c9a9259.json"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
