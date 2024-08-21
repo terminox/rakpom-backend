@@ -17,6 +17,9 @@ class Shop extends Model<InferAttributes<Shop>, InferCreationAttributes<Shop>> {
   // declare operatingHours: CreationOptional<string>
   declare juniorPriceTHB: CreationOptional<number>
   declare seniorPriceTHB: CreationOptional<number>
+  declare coverImageURL: CreationOptional<string>
+  declare thumbnailImageURL: CreationOptional<string>
+  declare address: CreationOptional<string>
   // declare shopImages: CreationOptional<string>
   // declare hairStyleImages: CreationOptional<string>
 }
@@ -67,6 +70,15 @@ Shop.init({
   // hairStyleImages: {
   //   type: DataTypes.STRING,
   // },
+  coverImageURL: {
+    type: DataTypes.STRING,
+  },
+  thumbnailImageURL: {
+    type: DataTypes.STRING,
+  },
+  address: {
+    type: DataTypes.STRING,
+  },
 }, {
   sequelize,
   modelName: 'Shop',
