@@ -16,9 +16,13 @@ export interface ShopDetailFetchingService {
 }
 
 export type ShopDetail = {
-  reviewerName: string
-  score: number
-  text: string
-  dateString: string
-  reviewerImageURL: string
+  id: string
+  name: string
+  ownerName: string
+  phone: string
+  imageURL: string
+  rating: number
+  reviewCount: number
+  address: string
+  businessHours: string
 }

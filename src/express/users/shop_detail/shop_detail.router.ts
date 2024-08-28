@@ -4,6 +4,7 @@ import ShopDetailController from './shop_detail.controller'
 import SequelizeShopDetailFetchingService from './shop_detail_fetching_service.sequelize'
 
 import sequelize from '../../../sequelize'
+import response from '../../../shared/response_object'
 
 export default class ShopDetailRouter {
     
@@ -17,9 +18,9 @@ export default class ShopDetailRouter {
     try {
       const shopID: string = req.params.id
       const shopDetail = await this.controller.getShopDetail(shopID)
-      res.status(200).json(shopDetail)
+      res.status(200).json(response(shopDetail))
     } catch (err) {
-      res.status(400).json({ error: (err as Error).message })
+      res.status(400).json(response(null, err as Error))
     }
   }
 

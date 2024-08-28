@@ -9,6 +9,7 @@ import UserRecentShopsRouter from './recent_shops/shops.router'
 import ShopDetailRouter from './shop_detail/shop_detail.router'
 import ShopReviewsRouter from './shop_reviews/shop_reviews.router'
 import BookingRequestsRouter from './booking_requests/booking_requests.router'
+import NotificationListRouter from './notifications/router'
 
 const router = Router()
 
@@ -64,6 +65,11 @@ router.get('/shops/:id', (req: Request, res: Response) => {
 
 router.get('/shops/:id/reviews', (req: Request, res: Response) => {
   const router = ShopReviewsRouter.makeDefaultRouter()
+  router.handle(req, res)
+})
+
+router.get('/notifications/pages', userAuth, (req: Request, res: Response) => {
+  const router = NotificationListRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
