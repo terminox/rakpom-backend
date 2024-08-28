@@ -10,6 +10,7 @@ import ShopDetailRouter from './shop_detail/shop_detail.router'
 import ShopReviewsRouter from './shop_reviews/shop_reviews.router'
 import BookingRequestsRouter from './booking_requests/booking_requests.router'
 import NotificationListRouter from './notifications/router'
+import BookingHistoryRouter from './booking_history_items/router'
 
 const router = Router()
 
@@ -53,23 +54,28 @@ router.get('/shops/pages', userAuth, (req: Request, res: Response) => {
   router.handle(req, res)
 })
 
-router.get('/shops/recent', (req: Request, res: Response) => {
+router.get('/shops/recent', userAuth, (req: Request, res: Response) => {
   const router = UserRecentShopsRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
-router.get('/shops/:id', (req: Request, res: Response) => {
+router.get('/shops/:id', userAuth, (req: Request, res: Response) => {
   const router = ShopDetailRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
-router.get('/shops/:id/reviews', (req: Request, res: Response) => {
+router.get('/shops/:id/reviews', userAuth, (req: Request, res: Response) => {
   const router = ShopReviewsRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
 router.get('/notifications/pages', userAuth, (req: Request, res: Response) => {
   const router = NotificationListRouter.makeDefaultRouter()
+  router.handle(req, res)
+})
+
+router.get('/booking_history_items/pages', userAuth, (req: Request, res: Response) => {
+  const router = BookingHistoryRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 

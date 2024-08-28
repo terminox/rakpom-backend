@@ -7,8 +7,8 @@ export default class NotificationListController {
   }
 
   async getNotificationList(offset: number, limit: number): Promise<NotificationItem[]> {
-    const shops = await this.service.getNotificationList(offset, limit)
-    return shops
+    const items = await this.service.getNotificationList(offset, limit)
+    return items 
   }
 }
 
