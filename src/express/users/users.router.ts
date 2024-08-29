@@ -4,6 +4,7 @@ import { userAuth } from '../middlewares/auth'
 
 import LoginRouter from './login/login.router'
 import SignupRouter from './signup/signup.router'
+import UserProfileRouter from './profiles/router'
 import UserShopsRouter from './shops/shops.router'
 import UserRecentShopsRouter from './recent_shops/shops.router'
 import ShopDetailRouter from './shop_detail/shop_detail.router'
@@ -37,7 +38,8 @@ router.post('/signup', (req: Request, res: Response) => {
 // })
 
 router.get('/profiles/me', userAuth, (req: Request, res: Response) => {
-  // TODO
+  const router = UserProfileRouter.makeDefaultRouter()
+  router.handle(req, res)
 })
 
 router.patch('/profiles/me', userAuth, (req: Request, res: Response) => {
