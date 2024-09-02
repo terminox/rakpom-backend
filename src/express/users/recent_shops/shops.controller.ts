@@ -17,6 +17,7 @@ export interface ShopListFetchingService {
 }
 
 export type Shop = {
+  id: string
   name: string
   imageURL: string
   address: string

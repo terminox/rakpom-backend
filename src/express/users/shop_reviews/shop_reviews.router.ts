@@ -4,6 +4,7 @@ import ShopReviewsController from './shop_reviews.controller'
 import SequelizeShopReviewsFetchingService from './shop_reviews_fetching_service.sequelize'
 
 import sequelize from '../../../sequelize'
+import response from '../../../shared/response_object'
 
 export default class ShopReviewsRouter {
     
@@ -17,9 +18,9 @@ export default class ShopReviewsRouter {
     try {
       const shopID: string = req.params.id
       const shopReviews = await this.controller.getShopReviews(shopID)
-      res.status(200).json(shopReviews)
+      res.status(200).json(response(shopReviews))
     } catch (err) {
-      res.status(400).json({ error: (err as Error).message })
+      res.status(400).json(response(null, err as Error))
     }
   }
 

@@ -16,6 +16,7 @@ export interface ShopReviewsFetchingService {
 }
 
 export type ShopReview = {
+  id: string
   reviewerName: string
   score: number
   text: string

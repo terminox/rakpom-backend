@@ -5,6 +5,7 @@ import BookingRequestsPresenter from './booking_requests.presenter'
 import SequelizeBookingRequestCreationService from './booking_request_creation_service.sequelize'
 
 import sequelize from '../../../sequelize'
+import response from '../../../shared/response_object'
 
 export default class BookingRequestsRouter {
   
@@ -23,6 +24,7 @@ export default class BookingRequestsRouter {
       const startMinute: number = parseInt(req.body.startMinute)
       const endHour: number = parseInt(req.body.endHour)
       const endMinute: number = parseInt(req.body.endMinute)
+      console.log('request: ', req)
       const result = await this.controller.createBookingRequest({
         userID,
         shopID,
@@ -32,9 +34,10 @@ export default class BookingRequestsRouter {
         endHour,
         endMinute
       })
-      res.status(200).json(result)
+      res.status(200).json(response(result))
     } catch (err) {
-      res.status(400).json({ error: (err as Error).message })
+      console.log('error: ', err)
+      res.status(400).json(response(null, err as Error))
     }
   }
 

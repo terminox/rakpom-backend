@@ -38,7 +38,7 @@ export function authMiddleware(decoder: TokenDecoder, service: AuthenticationSer
     const token = req.headers.authorization?.split(' ')[1]
 
     if (!token) {
-      res.status(401).json({ error: 'Unauthorized' }) // TODO
+      res.status(401).json({ data: null, error: 'Unauthorized' }) // TODO
       return
     }
 

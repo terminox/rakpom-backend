@@ -4,6 +4,7 @@ import UserShopsController from './shops.controller'
 import SequelizeShopListFetchingService from './shop_list_fetching_service.sequelize'
 
 import sequelize from '../../../sequelize'
+import response from '../../../shared/response_object'
 
 export default class UserShopsRouter {
   
@@ -18,9 +19,9 @@ export default class UserShopsRouter {
       const offset: number = parseInt(req.query.offset as string)
       const limit: number = parseInt(req.query.limit as string)
       const shops = await this.controller.getShops(offset, limit)
-      res.status(200).json(shops)
+      res.status(200).json(response(shops))
     } catch (err) {
-      res.status(400).json({ error: (err as Error).message })
+      res.status(400).json(response(null, err as Error))
     }
   }
 
