@@ -13,6 +13,7 @@ import OTPRouter from '../users/otp/otp.router'
 import PhoneSignupRouter from '../users/signup_phone/signup.router'
 
 import SequelizeRejectBookingRequestService from './reject_booking_request/reject_booking_request_service.sequelize'
+import SequelizeAcceptBookingRequestService from './accept_booking_request/accept_booking_request_service.sequelize'
 
 const router = Router()
 
@@ -63,7 +64,7 @@ router.patch('/profiles/me', shopAuth, (req: Request, res: Response) => {
 })
 
 // Reject a booking request
-router.delete('/booking-requests/:id', shopAuth, async (req: Request, res: Response) => {
+router.post('/booking-requests/:id/reject', shopAuth, async (req: Request, res: Response) => {
   try {
     const id = req.params.id
     const service = new SequelizeRejectBookingRequestService(sequelize)
@@ -75,8 +76,15 @@ router.delete('/booking-requests/:id', shopAuth, async (req: Request, res: Respo
 })
 
 // Accept a booking request
-router.post('/booking-requests/:id/accept', shopAuth, (req: Request, res: Response) => {
-  // TODO
+router.post('/booking-requests/:id/accept', shopAuth, async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+    const service = new SequelizeAcceptBookingRequestService(sequelize)
+    const result = await service.acceptBookingRequest({ id })
+    res.status(200).json(response(result))
+  } catch (err) {
+    res.status(400).json(response(null, err as Error))
+  }
 })
 
 export default router

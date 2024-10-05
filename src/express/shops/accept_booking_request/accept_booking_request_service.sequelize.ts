@@ -3,29 +3,29 @@ import { ulid } from 'ulid'
 
 import BookingRequestAction from '../../../sequelize/models/booking_request_action'
 
-export default class SequelizeRejectBookingRequestService {
+export default class SequelizeAcceptBookingRequestService {
   private sequelize: Sequelize
 
   constructor(sequelize: Sequelize) {
     this.sequelize = sequelize
   }
 
-  async rejectBookingRequest(payload: RejectBookingRequestPayload): Promise<RejectBookingResult> {
+  async acceptBookingRequest(payload: AcceptBookingRequestPayload): Promise<AcceptBookingResult> {
     const bookingRequestID = payload.id
     const action = await BookingRequestAction.create({
       id: ulid(),
       bookingRequestID,
-      action: 'reject'
+      action: 'accept'
     })
     return { id: action.id, bookingRequestID }
   }
 }
 
-export type RejectBookingRequestPayload = {
+export type AcceptBookingRequestPayload = {
   id: string
 }
 
-export type RejectBookingResult = {
+export type AcceptBookingResult = {
   id: string
   bookingRequestID: string
 }
