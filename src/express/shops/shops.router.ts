@@ -11,41 +11,41 @@ import PhoneSignupRouter from '../users/signup_phone/signup.router'
 
 const router = Router()
 
-// TODO: - Deprecate this route in favor of Firebase
-router.post('/login', (req: Request, res: Response) => {
-  const router = LoginRouter.makeDefaultRouter()
-  router.handle(req, res)
-})
-
-// TODO: - Deprecate this route in favor of Firebase
-router.post('/otps', (req: Request, res: Response) => {
-  const router = OTPRouter.makeDefaultRouter()
-  router.handle(req, res)
-})
-
-// TODO: - Deprecate this route in favor of Firebase
-router.post('/signup', (req: Request, res: Response) => {
-  const router = SignupRouter.makeDefaultRouter()
-  router.handle(req, res)
-})
-
-// TODO: - Deprecate this route in favor of Firebase
-router.post('/signup/phone', (req: Request, res: Response) => {
-  const router = PhoneSignupRouter.makeDefaultRouter()
-  router.handle(req, res)
-})
-
-// router.post('/signup/google', (req: Request, res: Response) => {
-//   // TODO
+// // TODO: - Deprecate this route in favor of Firebase
+// router.post('/login', (req: Request, res: Response) => {
+//   const router = LoginRouter.makeDefaultRouter()
+//   router.handle(req, res)
 // })
 
-// router.post('/signup/line', (req: Request, res: Response) => {
-//   // TODO
+// // TODO: - Deprecate this route in favor of Firebase
+// router.post('/otps', (req: Request, res: Response) => {
+//   const router = OTPRouter.makeDefaultRouter()
+//   router.handle(req, res)
 // })
 
-// router.post('/signup/apple', (req: Request, res: Response) => {
-//   // TODO
+// // TODO: - Deprecate this route in favor of Firebase
+// router.post('/signup', (req: Request, res: Response) => {
+//   const router = SignupRouter.makeDefaultRouter()
+//   router.handle(req, res)
 // })
+
+// // TODO: - Deprecate this route in favor of Firebase
+// router.post('/signup/phone', (req: Request, res: Response) => {
+//   const router = PhoneSignupRouter.makeDefaultRouter()
+//   router.handle(req, res)
+// })
+
+router.post('/signup/google', (req: Request, res: Response) => {
+  // TODO
+})
+
+router.post('/signup/line', (req: Request, res: Response) => {
+  // TODO
+})
+
+router.post('/signup/apple', (req: Request, res: Response) => {
+  // TODO
+})
 
 router.get('/profiles/me', shopAuth, (req: Request, res: Response) => {
   const router = ShopProfileRouter.makeDefaultRouter()
@@ -55,6 +55,16 @@ router.get('/profiles/me', shopAuth, (req: Request, res: Response) => {
 router.patch('/profiles/me', shopAuth, (req: Request, res: Response) => {
   const router = ShopProfileUpdateRouter.makeDefaultRouter()
   router.handle(req, res)
+})
+
+// Reject a booking request
+router.delete('/booking-requests/:id', shopAuth, (req: Request, res: Response) => {
+  // TODO
+})
+
+// Accept a booking request
+router.post('/booking-requests/:id/accept', shopAuth, (req: Request, res: Response) => {
+  // TODO
 })
 
 export default router
