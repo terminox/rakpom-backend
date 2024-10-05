@@ -6,16 +6,32 @@ import LoginRouter from './shop_login/login.router'
 import SignupRouter from './shop_signup/signup.router'
 import ShopProfileRouter from './shop_profile/shop_profile.router'
 import ShopProfileUpdateRouter from './shop_profile_update/router'
+import OTPRouter from '../users/otp/otp.router'
+import PhoneSignupRouter from '../users/signup_phone/signup.router'
 
 const router = Router()
 
+// TODO: - Deprecate this route in favor of Firebase
 router.post('/login', (req: Request, res: Response) => {
   const router = LoginRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
+// TODO: - Deprecate this route in favor of Firebase
+router.post('/otps', (req: Request, res: Response) => {
+  const router = OTPRouter.makeDefaultRouter()
+  router.handle(req, res)
+})
+
+// TODO: - Deprecate this route in favor of Firebase
 router.post('/signup', (req: Request, res: Response) => {
   const router = SignupRouter.makeDefaultRouter()
+  router.handle(req, res)
+})
+
+// TODO: - Deprecate this route in favor of Firebase
+router.post('/signup/phone', (req: Request, res: Response) => {
+  const router = PhoneSignupRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 

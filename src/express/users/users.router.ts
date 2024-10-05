@@ -3,7 +3,9 @@ import { Router, Request, Response } from 'express'
 import { userAuth } from '../middlewares/auth'
 
 import LoginRouter from './login/login.router'
+import OTPRouter from './otp/otp.router'
 import SignupRouter from './signup/signup.router'
+import PhoneSignupRouter from './signup_phone/signup.router'
 import UserProfileRouter from './profiles/router'
 import UserShopsRouter from './shops/shops.router'
 import UserRecentShopsRouter from './recent_shops/shops.router'
@@ -15,13 +17,27 @@ import BookingHistoryRouter from './booking_history_items/router'
 
 const router = Router()
 
+// TODO: - Deprecate this route in favor of Firebase
 router.post('/login', (req: Request, res: Response) => {
   const router = LoginRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
+// TODO: - Deprecate this route in favor of Firebase
+router.post('/otps', (req: Request, res: Response) => {
+  const router = OTPRouter.makeDefaultRouter()
+  router.handle(req, res)
+})
+
+// TODO: - Deprecate this route in favor of Firebase
 router.post('/signup', (req: Request, res: Response) => {
   const router = SignupRouter.makeDefaultRouter()
+  router.handle(req, res)
+})
+
+// TODO: - Deprecate this route in favor of Firebase
+router.post('/signup/phone', (req: Request, res: Response) => {
+  const router = PhoneSignupRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
