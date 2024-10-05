@@ -24,7 +24,6 @@ export default class BookingRequestsRouter {
       const startMinute: number = parseInt(req.body.startMinute)
       const endHour: number = parseInt(req.body.endHour)
       const endMinute: number = parseInt(req.body.endMinute)
-      console.log('request: ', req)
       const result = await this.controller.createBookingRequest({
         userID,
         shopID,
