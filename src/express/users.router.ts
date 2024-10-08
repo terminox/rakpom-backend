@@ -1,19 +1,19 @@
 import { Router, Request, Response } from 'express'
 
-import { userAuth } from '../middlewares/auth'
+import { userAuth } from './middlewares/auth'
 
-import LoginRouter from './login/login.router'
-import OTPRouter from './otp/otp.router'
-import SignupRouter from './signup/signup.router'
-import PhoneSignupRouter from './signup_phone/signup.router'
-import UserProfileRouter from './profiles/router'
-import UserShopsRouter from './shops/shops.router'
-import UserRecentShopsRouter from './recent_shops/shops.router'
-import ShopDetailRouter from './shop_detail/shop_detail.router'
-import ShopReviewsRouter from './shop_reviews/shop_reviews.router'
-import BookingRequestCreationRouter from './booking_request_creation/booking_request_creation.router'
-import NotificationListRouter from './notifications/router'
-import BookingHistoryRouter from './booking_history_items/router'
+import LoginRouter from './users/login/login.router'
+import OTPRouter from './users/otp/otp.router'
+import SignupRouter from './users/signup/signup.router'
+import PhoneSignupRouter from './users/signup_phone/signup.router'
+import UserProfileRouter from './users/profiles/router'
+import UserShopsRouter from './users/shops/shops.router'
+import UserRecentShopsRouter from './users/recent_shops/shops.router'
+import ShopDetailRouter from './users/shop_detail/shop_detail.router'
+import ShopReviewsRouter from './users/shop_reviews/shop_reviews.router'
+import BookingRequestCreationRouter from './users/booking_request_creation/booking_request_creation.router'
+import NotificationListRouter from './users/notifications/router'
+import BookingHistoryRouter from './users/booking_history_items/router'
 
 const router = Router()
 

@@ -1,8 +1,8 @@
 import express, { Application, Request, Response } from 'express'
 import morgan from 'morgan'
 
-import userRoutes from './users/users.router'
-import shopRoutes from './shops/shops.router'
+import userRoutes from './users.router'
+import shopRoutes from './shops.router'
 
 const app: Application = express()
 

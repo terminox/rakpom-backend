@@ -1,20 +1,21 @@
 import { Router, Request, Response } from 'express'
 
-import { shopAuth } from '../middlewares/auth'
+import { shopAuth } from './middlewares/auth'
 
-import sequelize from '../../sequelize'
-import response from '../../shared/response_object'
+import sequelize from './../sequelize'
+import response from './../shared/response_object'
 
-import LoginRouter from './shop_login/login.router'
-import SignupRouter from './shop_signup/signup.router'
-import ShopProfileRouter from './shop_profile/shop_profile.router'
-import ShopProfileUpdateRouter from './shop_profile_update/router'
-import OTPRouter from '../users/otp/otp.router'
-import PhoneSignupRouter from '../users/signup_phone/signup.router'
+import LoginRouter from './shops/shop_login/login.router'
+import SignupRouter from './shops/shop_signup/signup.router'
+import ShopProfileRouter from './shops/shop_profile/shop_profile.router'
+import ShopProfileUpdateRouter from './shops/shop_profile_update/router'
 
-import SequelizeBookingRequestFetchingService from './booking_requests/booking_request_fetching_service.sequelize'
-import SequelizeRejectBookingRequestService from './reject_booking_request/reject_booking_request_service.sequelize'
-import SequelizeAcceptBookingRequestService from './accept_booking_request/accept_booking_request_service.sequelize'
+import OTPRouter from './users/otp/otp.router'
+import PhoneSignupRouter from './users/signup_phone/signup.router'
+
+import SequelizeBookingRequestFetchingService from './shops/booking_requests/booking_request_fetching_service.sequelize'
+import SequelizeRejectBookingRequestService from './shops/reject_booking_request/reject_booking_request_service.sequelize'
+import SequelizeAcceptBookingRequestService from './shops/accept_booking_request/accept_booking_request_service.sequelize'
 
 const router = Router()
 
