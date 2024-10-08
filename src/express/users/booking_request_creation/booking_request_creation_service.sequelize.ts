@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize'
 import { ulid } from 'ulid'
 
-import { BookingRequestCreationService, CreateBookingRequestPayload, CreateBookingRequestResult } from './booking_requests.controller'
+import { BookingRequestCreationService, CreateBookingRequestPayload, CreateBookingRequestResult } from './booking_request_creation.controller'
 
 import BookingRequest from '../../../sequelize/models/booking_request'
 import User from '../../../sequelize/models/user_profile'
@@ -31,6 +31,7 @@ export default class SequelizeBookingRequestCreationService implements BookingRe
       startMinute: payload.startMinute,
       endHour: payload.endHour,
       endMinute: payload.endMinute,
+      status: 'pending'
     })
 
     return {

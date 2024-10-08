@@ -1,7 +1,6 @@
 import { Sequelize } from 'sequelize'
-import { ulid } from 'ulid'
 
-import BookingRequestAction from '../../../sequelize/models/booking_request_action'
+import BookingRequest from '../../../sequelize/models/booking_request'
 
 export default class SequelizeRejectBookingRequestService {
   private sequelize: Sequelize
@@ -12,12 +11,16 @@ export default class SequelizeRejectBookingRequestService {
 
   async rejectBookingRequest(payload: RejectBookingRequestPayload): Promise<RejectBookingResult> {
     const bookingRequestID = payload.id
-    const action = await BookingRequestAction.create({
-      id: ulid(),
-      bookingRequestID,
-      action: 'reject'
+
+    const result = await BookingRequest.update({
+      status: 'rejected'
+    }, {
+      where: {
+        id: bookingRequestID
+      }
     })
-    return { id: action.id, bookingRequestID }
+
+    return { bookingRequestID }
   }
 }
 
@@ -26,6 +29,5 @@ export type RejectBookingRequestPayload = {
 }
 
 export type RejectBookingResult = {
-  id: string
   bookingRequestID: string
 }

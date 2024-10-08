@@ -12,6 +12,7 @@ import ShopProfileUpdateRouter from './shop_profile_update/router'
 import OTPRouter from '../users/otp/otp.router'
 import PhoneSignupRouter from '../users/signup_phone/signup.router'
 
+import SequelizeBookingRequestFetchingService from './booking_requests/booking_request_fetching_service.sequelize'
 import SequelizeRejectBookingRequestService from './reject_booking_request/reject_booking_request_service.sequelize'
 import SequelizeAcceptBookingRequestService from './accept_booking_request/accept_booking_request_service.sequelize'
 
@@ -61,6 +62,18 @@ router.get('/profiles/me', shopAuth, (req: Request, res: Response) => {
 router.patch('/profiles/me', shopAuth, (req: Request, res: Response) => {
   const router = ShopProfileUpdateRouter.makeDefaultRouter()
   router.handle(req, res)
+})
+
+// View pending booking requests
+router.get('/booking-requests', shopAuth, async (req: Request, res: Response) => {
+  try {
+    const shopID: string = res.locals.user.id
+    const service = new SequelizeBookingRequestFetchingService(sequelize)
+    const result = await service.fetchPendingBookingRequests(shopID)
+    res.status(200).json(response(result))
+  } catch (err) {
+    res.status(400).json(response(null, err as Error))
+  }
 })
 
 // Reject a booking request

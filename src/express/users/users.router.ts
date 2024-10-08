@@ -11,7 +11,7 @@ import UserShopsRouter from './shops/shops.router'
 import UserRecentShopsRouter from './recent_shops/shops.router'
 import ShopDetailRouter from './shop_detail/shop_detail.router'
 import ShopReviewsRouter from './shop_reviews/shop_reviews.router'
-import BookingRequestsRouter from './booking_requests/booking_requests.router'
+import BookingRequestCreationRouter from './booking_request_creation/booking_request_creation.router'
 import NotificationListRouter from './notifications/router'
 import BookingHistoryRouter from './booking_history_items/router'
 
@@ -63,7 +63,7 @@ router.patch('/profiles/me', userAuth, (req: Request, res: Response) => {
 })
 
 router.post('/booking-requests', userAuth, (req: Request, res: Response) => {
-  const router = BookingRequestsRouter.makeDefaultRouter()
+  const router = BookingRequestCreationRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 

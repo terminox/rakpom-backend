@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
-import BookingRequestsController from './booking_requests.controller'
-import BookingRequestsPresenter from './booking_requests.presenter'
+import BookingRequestsController from './booking_request_creation.controller'
+import BookingRequestsPresenter from './booking_request_creation.presenter'
 import SequelizeBookingRequestCreationService from './booking_request_creation_service.sequelize'
 
 import sequelize from '../../../sequelize'

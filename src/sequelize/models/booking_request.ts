@@ -14,6 +14,7 @@ class BookingRequest extends Model<InferAttributes<BookingRequest>, InferCreatio
   declare startMinute: number
   declare endHour: number
   declare endMinute: number
+  declare status: string
 }
 
 BookingRequest.init({
@@ -58,9 +59,23 @@ BookingRequest.init({
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  status: {
+    type: DataTypes.ENUM('pending', 'accepted', 'rejected'),
+    allowNull: false,
+  }
 }, {
   sequelize,
   modelName: 'BookingRequest'
+})
+
+BookingRequest.belongsTo(UserProfile, {
+  foreignKey: 'userID',
+  targetKey: 'id'
+})
+
+BookingRequest.belongsTo(Shop, {
+  foreignKey: 'shopID',
+  targetKey: 'id'
 })
 
 export default BookingRequest

@@ -1,4 +1,4 @@
-import { BookingRequestCreationPresenter, CreateBookingRequestResult, BookingConfirmationDisplayItem } from './booking_requests.controller'
+import { BookingRequestCreationPresenter, CreateBookingRequestResult, BookingConfirmationDisplayItem } from './booking_request_creation.controller'
 
 export default class BookingRequestPresenter implements BookingRequestCreationPresenter {
   async presentBookingConfirmation(result: CreateBookingRequestResult): Promise<BookingConfirmationDisplayItem[]> {
