@@ -108,8 +108,8 @@ router.get('/booking_history_items/pages', userAuth, (req: Request, res: Respons
 router.post('/payment/cash', userAuth, async (req: Request, res: Response) => {
   try {
     const userID = res.locals.user.id
-    const shopCode = req.params.shopCode
-    const amount = Number(req.params.amount)
+    const shopCode = req.body.shopCode
+    const amount = Number(req.body.amount)
     const service = new SequelizeCashPaymentService(sequelize)
     const result = await service.submitCashPayment({ userID, shopCode, amount })
     res.status(200).json(response(result))
