@@ -2,8 +2,8 @@ import { Router, Request, Response } from 'express'
 
 import { shopAuth } from './middlewares/auth'
 
-import sequelize from './../sequelize'
-import response from './../shared/response_object'
+import sequelize from '../sequelize'
+import response from '../shared/response_object'
 
 import LoginRouter from './shops/shop_login/login.router'
 import SignupRouter from './shops/shop_signup/signup.router'
@@ -19,29 +19,29 @@ import SequelizeAcceptBookingRequestService from './shops/accept_booking_request
 
 const router = Router()
 
-// TODO: - Deprecate this route in favor of Firebase
-router.post('/login', (req: Request, res: Response) => {
-  const router = LoginRouter.makeDefaultRouter()
-  router.handle(req, res)
-})
+// // TODO: - Deprecate this route in favor of Firebase
+// router.post('/login', (req: Request, res: Response) => {
+//   const router = LoginRouter.makeDefaultRouter()
+//   router.handle(req, res)
+// })
 
-// TODO: - Deprecate this route in favor of Firebase
-router.post('/otps', (req: Request, res: Response) => {
-  const router = OTPRouter.makeDefaultRouter()
-  router.handle(req, res)
-})
+// // TODO: - Deprecate this route in favor of Firebase
+// router.post('/otps', (req: Request, res: Response) => {
+//   const router = OTPRouter.makeDefaultRouter()
+//   router.handle(req, res)
+// })
 
-// TODO: - Deprecate this route in favor of Firebase
-router.post('/signup', (req: Request, res: Response) => {
-  const router = SignupRouter.makeDefaultRouter()
-  router.handle(req, res)
-})
+// // TODO: - Deprecate this route in favor of Firebase
+// router.post('/signup', (req: Request, res: Response) => {
+//   const router = SignupRouter.makeDefaultRouter()
+//   router.handle(req, res)
+// })
 
-// TODO: - Deprecate this route in favor of Firebase
-router.post('/signup/phone', (req: Request, res: Response) => {
-  const router = PhoneSignupRouter.makeDefaultRouter()
-  router.handle(req, res)
-})
+// // TODO: - Deprecate this route in favor of Firebase
+// router.post('/signup/phone', (req: Request, res: Response) => {
+//   const router = PhoneSignupRouter.makeDefaultRouter()
+//   router.handle(req, res)
+// })
 
 router.post('/signup/google', (req: Request, res: Response) => {
   // TODO

@@ -8,6 +8,7 @@ class Shop extends Model<InferAttributes<Shop>, InferCreationAttributes<Shop>> {
   declare id: string
   declare shopName: CreationOptional<string>
   declare shopOwnerName: CreationOptional<string>
+  declare shopCode: CreationOptional<string>
   // declare coordinates: CreationOptional<string>
   // declare coordinatesItemID: CreationOptional<string>
   declare phone: CreationOptional<string>
@@ -34,6 +35,9 @@ Shop.init({
     type: DataTypes.STRING,
   },
   shopOwnerName: {
+    type: DataTypes.STRING,
+  },
+  shopCode: {
     type: DataTypes.STRING,
   },
   // coordinatesItemID: {
