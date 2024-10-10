@@ -12,11 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const shops_controller_1 = __importDefault(require("./shops.controller"));
-const shop_list_fetching_service_sequelize_1 = __importDefault(require("./shop_list_fetching_service.sequelize"));
+const controller_1 = __importDefault(require("./controller"));
+const list_fetching_service_sequelize_1 = __importDefault(require("./list_fetching_service.sequelize"));
 const sequelize_1 = __importDefault(require("../../../sequelize"));
 const response_object_1 = __importDefault(require("../../../shared/response_object"));
-class UserShopsRouter {
+class Router {
     constructor(controller) {
         this.controller = controller;
     }
@@ -25,8 +25,8 @@ class UserShopsRouter {
             try {
                 const offset = parseInt(req.query.offset);
                 const limit = parseInt(req.query.limit);
-                const shops = yield this.controller.getShops(offset, limit);
-                res.status(200).json((0, response_object_1.default)(shops));
+                const notifications = yield this.controller.getNotificationList(offset, limit);
+                res.status(200).json((0, response_object_1.default)(notifications));
             }
             catch (err) {
                 res.status(400).json((0, response_object_1.default)(null, err));
@@ -34,9 +34,9 @@ class UserShopsRouter {
         });
     }
     static makeDefaultRouter() {
-        const service = new shop_list_fetching_service_sequelize_1.default(sequelize_1.default);
-        const controller = new shops_controller_1.default(service);
-        return new UserShopsRouter(controller);
+        const service = new list_fetching_service_sequelize_1.default(sequelize_1.default);
+        const controller = new controller_1.default(service);
+        return new Router(controller);
     }
 }
-exports.default = UserShopsRouter;
+exports.default = Router;

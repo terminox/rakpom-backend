@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize'
 import { ulid } from 'ulid'
 
-import { UserStore, SignupPayload, SignupResult } from './signup.controller'
+import { UserStore, SignupPayload, SignupResult } from '../signup/signup.controller'
 
 import BasicAuthItem from '../../../sequelize/models/basic_auth_item'
 import UserProfile from '../../../sequelize/models/user_profile'

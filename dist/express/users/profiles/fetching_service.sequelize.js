@@ -12,25 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_1 = __importDefault(require("lodash"));
-const shop_1 = __importDefault(require("../../../sequelize/models/shop"));
-class SequelizeShopListFetchingService {
+const user_profile_1 = __importDefault(require("../../../sequelize/models/user_profile"));
+class SequelizeUserProfileFetchingService {
     constructor(sequelize) {
         this.sequelize = sequelize;
     }
-    getShops(offset, limit) {
+    getUserProfile(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const seqShops = yield shop_1.default.findAll({ offset, limit });
-            const shops = lodash_1.default.map(seqShops, (shop) => {
-                return {
-                    id: shop.id,
-                    name: shop.shopName,
-                    imageURL: shop.thumbnailImageURL,
-                    address: shop.address,
-                };
+            const profile = yield user_profile_1.default.findOne({
+                where: { id }
             });
-            return shops;
+            if (profile == null) {
+                throw new Error('User profile not found'); // TODO
+            }
+            return {
+                id: profile.id,
+                email: profile.email,
+                memberID: String(profile.memberID),
+                fullName: profile.fullName,
+                gender: profile.gender,
+                phoneNumber: profile.phoneNumber,
+                avatarURL: 'https://plus.unsplash.com/premium_photo-1671656349218-5218444643d8?q=80&w=3486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' // TODO
+            };
         });
     }
 }
-exports.default = SequelizeShopListFetchingService;
+exports.default = SequelizeUserProfileFetchingService;

@@ -12,25 +12,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_1 = __importDefault(require("lodash"));
-const shop_1 = __importDefault(require("../../../sequelize/models/shop"));
-class SequelizeShopListFetchingService {
-    constructor(sequelize) {
-        this.sequelize = sequelize;
+const otp_controller_1 = __importDefault(require("./otp.controller"));
+const response_object_1 = __importDefault(require("../../../shared/response_object"));
+class OTPRouter {
+    constructor(controller) {
+        this.controller = controller;
     }
-    getShops(offset, limit) {
+    handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const seqShops = yield shop_1.default.findAll({ offset, limit });
-            const shops = lodash_1.default.map(seqShops, (shop) => {
-                return {
-                    id: shop.id,
-                    name: shop.shopName,
-                    imageURL: shop.thumbnailImageURL,
-                    address: shop.address,
-                };
-            });
-            return shops;
+            try {
+                const phone = req.body.phone;
+                const otpResponse = yield this.controller.requestPhoneSignupOTP(phone);
+                res.status(201).json((0, response_object_1.default)(otpResponse));
+            }
+            catch (err) {
+                res.status(400).json((0, response_object_1.default)(null, err));
+            }
         });
     }
+    static makeDefaultRouter() {
+        const controller = new otp_controller_1.default();
+        return new OTPRouter(controller);
+    }
 }
-exports.default = SequelizeShopListFetchingService;
+exports.default = OTPRouter;

@@ -12,25 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_1 = __importDefault(require("lodash"));
-const shop_1 = __importDefault(require("../../../sequelize/models/shop"));
-class SequelizeShopListFetchingService {
+const booking_request_1 = __importDefault(require("../../../sequelize/models/booking_request"));
+class SequelizeRejectBookingRequestService {
     constructor(sequelize) {
         this.sequelize = sequelize;
     }
-    getShops(offset, limit) {
+    rejectBookingRequest(payload) {
         return __awaiter(this, void 0, void 0, function* () {
-            const seqShops = yield shop_1.default.findAll({ offset, limit });
-            const shops = lodash_1.default.map(seqShops, (shop) => {
-                return {
-                    id: shop.id,
-                    name: shop.shopName,
-                    imageURL: shop.thumbnailImageURL,
-                    address: shop.address,
-                };
+            const bookingRequestID = payload.id;
+            const result = yield booking_request_1.default.update({
+                status: 'rejected'
+            }, {
+                where: {
+                    id: bookingRequestID
+                }
             });
-            return shops;
+            return { bookingRequestID };
         });
     }
 }
-exports.default = SequelizeShopListFetchingService;
+exports.default = SequelizeRejectBookingRequestService;

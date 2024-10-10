@@ -10,6 +10,11 @@ const sequelize = new sequelize_1.Sequelize(POSTGRES_USERS_DB_NAME, POSTGRES_USE
     host: POSTGRES_HOST,
     port: POSTGRES_PORT,
     dialect: 'postgres',
+    dialectOptions: {
+        ssl: {
+            rejectUnauthorized: false
+        }
+    }
 });
 // const sequelize = new Sequelize('sqlite::memory:')
 exports.default = sequelize;

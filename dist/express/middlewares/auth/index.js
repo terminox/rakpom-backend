@@ -45,7 +45,7 @@ function authMiddleware(decoder, service) {
             var _a;
             const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1];
             if (!token) {
-                res.status(401).json({ error: 'Unauthorized' }); // TODO
+                res.status(401).json({ data: null, error: 'Unauthorized' }); // TODO
                 return;
             }
             const controller = new AuthenticationController(decoder, service);

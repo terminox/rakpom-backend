@@ -12,25 +12,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_1 = __importDefault(require("lodash"));
+const ulid_1 = require("ulid");
 const shop_1 = __importDefault(require("../../../sequelize/models/shop"));
-class SequelizeShopListFetchingService {
+const transaction_1 = __importDefault(require("../../../sequelize/models/transaction"));
+class SequelizeCashPaymentService {
     constructor(sequelize) {
         this.sequelize = sequelize;
     }
-    getShops(offset, limit) {
+    submitCashPayment(payload) {
         return __awaiter(this, void 0, void 0, function* () {
-            const seqShops = yield shop_1.default.findAll({ offset, limit });
-            const shops = lodash_1.default.map(seqShops, (shop) => {
-                return {
-                    id: shop.id,
-                    name: shop.shopName,
-                    imageURL: shop.thumbnailImageURL,
-                    address: shop.address,
-                };
+            const shop = yield shop_1.default.findOne({ where: { shopCode: payload.shopCode } });
+            if (shop == null) {
+                throw new Error('Invalid shop code');
+            }
+            const payment = yield transaction_1.default.create({
+                id: (0, ulid_1.ulid)(),
+                userID: payload.userID,
+                shopID: shop.id,
+                amount: -payload.amount,
+                type: 'cash'
             });
-            return shops;
+            return {
+                id: payment.id,
+                userID: payment.userID,
+                shopID: payment.shopID,
+                amount: payment.amount,
+                type: payment.type
+            };
         });
     }
 }
-exports.default = SequelizeShopListFetchingService;
+exports.default = SequelizeCashPaymentService;

@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const shop_reviews_controller_1 = __importDefault(require("./shop_reviews.controller"));
 const shop_reviews_fetching_service_sequelize_1 = __importDefault(require("./shop_reviews_fetching_service.sequelize"));
 const sequelize_1 = __importDefault(require("../../../sequelize"));
+const response_object_1 = __importDefault(require("../../../shared/response_object"));
 class ShopReviewsRouter {
     constructor(controller) {
         this.controller = controller;
@@ -24,10 +25,10 @@ class ShopReviewsRouter {
             try {
                 const shopID = req.params.id;
                 const shopReviews = yield this.controller.getShopReviews(shopID);
-                res.status(200).json(shopReviews);
+                res.status(200).json((0, response_object_1.default)(shopReviews));
             }
             catch (err) {
-                res.status(400).json({ error: err.message });
+                res.status(400).json((0, response_object_1.default)(null, err));
             }
         });
     }

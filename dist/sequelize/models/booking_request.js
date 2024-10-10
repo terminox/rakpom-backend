@@ -51,8 +51,20 @@ BookingRequest.init({
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
     },
+    status: {
+        type: sequelize_1.DataTypes.ENUM('pending', 'accepted', 'rejected'),
+        allowNull: false,
+    }
 }, {
     sequelize: __1.default,
     modelName: 'BookingRequest'
+});
+BookingRequest.belongsTo(user_profile_1.default, {
+    foreignKey: 'userID',
+    targetKey: 'id'
+});
+BookingRequest.belongsTo(shop_1.default, {
+    foreignKey: 'shopID',
+    targetKey: 'id'
 });
 exports.default = BookingRequest;

@@ -1,37 +1,37 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const sequelize_1 = require("sequelize");
-const __1 = __importDefault(require(".."));
-const shop_1 = __importDefault(require("./shop"));
-class ShopCoordinatesItem extends sequelize_1.Model {
-}
-ShopCoordinatesItem.init({
-    id: {
-        type: sequelize_1.DataTypes.STRING,
-        primaryKey: true,
-        unique: true,
-    },
-    shopID: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-        references: {
-            model: shop_1.default,
-            key: 'id',
-        }
-    },
-    latitude: {
-        type: sequelize_1.DataTypes.DOUBLE,
-        allowNull: false,
-    },
-    longitude: {
-        type: sequelize_1.DataTypes.DOUBLE,
-        allowNull: false,
-    },
-}, {
-    sequelize: __1.default,
-    modelName: 'ShopCoordinatesItem',
-});
-exports.default = ShopCoordinatesItem;
+// import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional, ModelDefined } from 'sequelize'
+// import sequelize from '..'
+// import Shop from './shop'
+// class ShopCoordinatesItem extends Model<InferAttributes<ShopCoordinatesItem>, InferCreationAttributes<ShopCoordinatesItem>> {
+//   declare id: string
+//   declare shopID: string
+//   declare latitude: number
+//   declare longitude: number
+// }
+// ShopCoordinatesItem.init({
+//   id: {
+//     type: DataTypes.STRING,
+//     primaryKey: true,
+//     unique: true,
+//   },
+//   shopID: {
+//     type: DataTypes.STRING,
+//     allowNull: false,
+//     references: {
+//       model: Shop,
+//       key: 'id',
+//     }
+//   },
+//   latitude: {
+//     type: DataTypes.DOUBLE,
+//     allowNull: false,
+//   },
+//   longitude: {
+//     type: DataTypes.DOUBLE,
+//     allowNull: false,
+//   },
+// }, {
+//   sequelize,
+//   modelName: 'ShopCoordinatesItem',
+// })
+// export default ShopCoordinatesItem

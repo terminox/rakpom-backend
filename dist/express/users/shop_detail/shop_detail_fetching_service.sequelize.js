@@ -8,15 +8,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const shop_1 = __importDefault(require("../../../sequelize/models/shop"));
 class SequelizeShopReviewsFetchingService {
     constructor(sequelize) {
         this.sequelize = sequelize;
     }
     getShopDetail(shopID) {
         return __awaiter(this, void 0, void 0, function* () {
-            // TODO
-            return {};
+            const shop = yield shop_1.default.findOne({ where: { id: shopID } });
+            if (shop === null) {
+                throw new Error('Shop not found'); // TODO: 
+            }
+            const shopDetail = {
+                id: shop.id,
+                name: shop.shopName,
+                ownerName: shop.shopOwnerName,
+                phone: shop.phone,
+                imageURL: shop.coverImageURL,
+                // rating: shop.rating,
+                // reviewCount: shop.reviewCount,
+                rating: 4,
+                reviewCount: 5,
+                address: shop.address,
+                businessHours: '10:00น. - 20:00น.'
+            };
+            return shopDetail;
         });
     }
 }

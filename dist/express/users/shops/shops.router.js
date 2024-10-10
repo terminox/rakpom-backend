@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const shops_controller_1 = __importDefault(require("./shops.controller"));
 const shop_list_fetching_service_sequelize_1 = __importDefault(require("./shop_list_fetching_service.sequelize"));
 const sequelize_1 = __importDefault(require("../../../sequelize"));
+const response_object_1 = __importDefault(require("../../../shared/response_object"));
 class UserShopsRouter {
     constructor(controller) {
         this.controller = controller;
@@ -25,10 +26,10 @@ class UserShopsRouter {
                 const offset = parseInt(req.query.offset);
                 const limit = parseInt(req.query.limit);
                 const shops = yield this.controller.getShops(offset, limit);
-                res.status(200).json(shops);
+                res.status(200).json((0, response_object_1.default)(shops));
             }
             catch (err) {
-                res.status(400).json({ error: err.message });
+                res.status(400).json((0, response_object_1.default)(null, err));
             }
         });
     }

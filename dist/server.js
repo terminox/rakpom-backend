@@ -37,12 +37,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const http = __importStar(require("http"));
 const app_1 = __importDefault(require("./express/app"));
-const PORT = Number(process.env.PORT) || 8000;
+const host = '0.0.0.0';
+const port = Number(process.env.PORT) || 8000;
 const server = http.createServer(app_1.default);
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
-        server.listen(PORT, () => {
-            console.log(`Server is running on http://localhost:${PORT}`);
+        server.listen(port, host, () => {
+            console.log(`Server is running on http://localhost:${port}`);
         });
     });
 }

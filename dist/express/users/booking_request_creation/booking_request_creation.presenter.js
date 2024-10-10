@@ -9,22 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-class SequelizeShopListFetchingService {
-    constructor(sequelize) {
-        this.sequelize = sequelize;
-    }
-    getShops(offset, limit) {
+class BookingRequestPresenter {
+    presentBookingConfirmation(result) {
         return __awaiter(this, void 0, void 0, function* () {
-            // TODO
-            return [
-                {
-                    id: "01J4ME0AEAYC6CC5Y2ZDMFX0AV",
-                    name: "ร้านลุงหนุ่ม",
-                    imageURL: "https://images.unsplash.com/photo-1532710093739-9470acff878f?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                    address: "35/8 ถนน งามวงศ์วาน แขวงลาดยาว เขตจตุจักร กรุงเทพมหานคร  10900"
-                }
+            const startMinute = result.startMinute < 10 ? `0${result.startMinute}` : result.startMinute;
+            const endMinute = result.endMinute < 10 ? `0${result.endMinute}` : result.endMinute;
+            const items = [
+                { title: 'ชื่อร้าน', value: result.shopName },
+                { title: 'ชื่อลูกค้า', value: result.customerName },
+                { title: 'วันที่', value: result.date.toString() },
+                { title: 'เวลาที่จอง', value: `${result.startHour}:${startMinute} - ${result.endHour}:${endMinute} น.` },
             ];
+            return items;
         });
     }
 }
-exports.default = SequelizeShopListFetchingService;
+exports.default = BookingRequestPresenter;
