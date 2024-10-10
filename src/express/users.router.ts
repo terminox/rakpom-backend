@@ -18,6 +18,7 @@ import BookingRequestCreationRouter from './users/booking_request_creation/booki
 import NotificationListRouter from './users/notifications/router'
 import BookingHistoryRouter from './users/booking_history_items/router'
 
+import SequelizeQRPaymentService from './payment/qr/qr_payment_service.sequelize'
 import SequelizeCashPaymentService from './payment/cash/cash_payment_service.sequelize'
 
 import { Sequelize } from 'sequelize'
@@ -102,6 +103,20 @@ router.get('/notifications/pages', userAuth, (req: Request, res: Response) => {
 router.get('/booking_history_items/pages', userAuth, (req: Request, res: Response) => {
   const router = BookingHistoryRouter.makeDefaultRouter()
   router.handle(req, res)
+})
+
+// Submit a QR payment
+router.post('/payment/qr', userAuth, async (req: Request, res: Response) => {
+  try {
+    const userID = res.locals.user.id
+    const shopCode = req.body.shopCode
+    const amount = Number(req.body.amount)
+    const service = new SequelizeCashPaymentService(sequelize)
+    const result = await service.submitCashPayment({ userID, shopCode, amount })
+    res.status(200).json(response(result))
+  } catch (err) {
+    res.status(400).json(response(null, err as Error))
+  }
 })
 
 // Submit a cash payment

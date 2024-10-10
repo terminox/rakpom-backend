@@ -14,17 +14,27 @@
     "dialect": "postgres"
   },
   "staging": {
-    "username": "postgres",
-    "password": "qwerqwerqwer",
-    "database": "postgres",
-    "host": "34.142.223.113",
-    "dialect": "postgres"
+    "username": "u6370ga7poi0kb",
+    "password": "p3cb8f6e82c51304fe424dfd614c8dfc89d6217bc2c652f9142e9ffc65c1e9ab7",
+    "database": "d9l96khogrjs0l",
+    "host": "c9pv5s2sq0i76o.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
+    "dialect": "postgres",
+    "dialectOptions": { 
+      "ssl": {
+        "rejectUnauthorized": false
+      }
+    }
   },
   "production": {
-    "username": "postgres",
-    "password": "1qaz2wsx3edc",
-    "database": "postgres",
-    "host": "35.240.255.177",
-    "dialect": "postgres"
+    "username": "ubvfinrk2td0mf",
+    "password": "p98f459ef922f17f2c0182f3fd85ea8b51cfe9e395470fd1c1c4c77d87c50882e",
+    "database": "d7vovhf3qb2t64",
+    "host": "c9pv5s2sq0i76o.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
+    "dialect": "postgres",
+    "dialectOptions": { 
+      "ssl": {
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
