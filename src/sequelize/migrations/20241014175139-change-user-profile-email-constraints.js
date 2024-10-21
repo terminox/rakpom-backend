@@ -13,12 +13,12 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.changeColumn('UserProfiles', 'email', {
-      type: Sequelize.STRING,
-      allowNull: false,
-      validate: {
-        isEmail: true
-      },
-    })
+    // await queryInterface.changeColumn('UserProfiles', 'email', {
+    //   type: Sequelize.STRING,
+    //   allowNull: false,
+    //   validate: {
+    //     isEmail: true
+    //   },
+    // })
   }
 };

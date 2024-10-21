@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
+import admin from 'firebase-admin'
 
 import { TokenDecoder, AuthenticationService, AuthPayload, AuthenticatedUser } from './core'
 
+import SequelizeUserFirebaseAuthService from './user_firebase_auth.sequelize'
 import SequelizeUserAuthService from './user_auth.sequelize'
 import SequelizeShopAuthService from './shop_auth.sequelize'
 
@@ -33,6 +35,13 @@ class JWTDecoder implements TokenDecoder {
   }
 }
 
+class FirebaseAuthDecoder implements TokenDecoder {
+  async decode(token: string): Promise<AuthPayload> {
+    const result = await admin.auth().verifyIdToken(token)
+    return { id: result.phone_number ?? '' } 
+  }
+}
+
 export function authMiddleware(decoder: TokenDecoder, service: AuthenticationService): (req: Request, res: Response, next: NextFunction) => Promise<void> {
   return async function (req: Request, res: Response, next: NextFunction) {
     const token = req.headers.authorization?.split(' ')[1]
@@ -47,6 +56,13 @@ export function authMiddleware(decoder: TokenDecoder, service: AuthenticationSer
     res.locals.user = user
     next()
   }
+}
+
+export async function userFirebaseAuth(req: Request, res: Response, next: NextFunction) {
+  const decoder = new FirebaseAuthDecoder()
+  const service = new SequelizeUserFirebaseAuthService(sequelize)
+  const middleware = authMiddleware(decoder, service)
+  return middleware(req, res, next)
 }
 
 export async function userAuth(req: Request, res: Response, next: NextFunction) {

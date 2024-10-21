@@ -55,7 +55,7 @@ export default class SequelizeFirebasePhoneSignupService {
         throw new Error('Profile not found')
       }
 
-      return { status: 'registered' }
+      return { status: 'completed' }
     }
   }
 }

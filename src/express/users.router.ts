@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
 
-import { userAuth } from './middlewares/auth'
+import { userFirebaseAuth } from './middlewares/auth'
 
 import sequelize from '../sequelize'
 import response from '../shared/response_object'
@@ -72,52 +72,52 @@ router.post('/signup/apple', (req: Request, res: Response) => {
   // TODO
 })
 
-router.get('/profiles/me', userAuth, (req: Request, res: Response) => {
+router.get('/profiles/me', userFirebaseAuth, (req: Request, res: Response) => {
   const router = UserProfileRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
-router.patch('/profiles/me', userAuth, (req: Request, res: Response) => {
+router.patch('/profiles/me', userFirebaseAuth, (req: Request, res: Response) => {
   // TODO
 })
 
-router.post('/booking-requests', userAuth, (req: Request, res: Response) => {
+router.post('/booking-requests', userFirebaseAuth, (req: Request, res: Response) => {
   const router = BookingRequestCreationRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
-router.get('/shops/pages', userAuth, (req: Request, res: Response) => {
+router.get('/shops/pages', userFirebaseAuth, (req: Request, res: Response) => {
   const router = UserShopsRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
-router.get('/shops/recent', userAuth, (req: Request, res: Response) => {
+router.get('/shops/recent', userFirebaseAuth, (req: Request, res: Response) => {
   const router = UserRecentShopsRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
-router.get('/shops/:id', userAuth, (req: Request, res: Response) => {
+router.get('/shops/:id', userFirebaseAuth, (req: Request, res: Response) => {
   const router = ShopDetailRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
-router.get('/shops/:id/reviews', userAuth, (req: Request, res: Response) => {
+router.get('/shops/:id/reviews', userFirebaseAuth, (req: Request, res: Response) => {
   const router = ShopReviewsRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
-router.get('/notifications/pages', userAuth, (req: Request, res: Response) => {
+router.get('/notifications/pages', userFirebaseAuth, (req: Request, res: Response) => {
   const router = NotificationListRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
-router.get('/booking_history_items/pages', userAuth, (req: Request, res: Response) => {
+router.get('/booking_history_items/pages', userFirebaseAuth, (req: Request, res: Response) => {
   const router = BookingHistoryRouter.makeDefaultRouter()
   router.handle(req, res)
 })
 
 // Submit a QR payment
-router.post('/payment/qr', userAuth, async (req: Request, res: Response) => {
+router.post('/payment/qr', userFirebaseAuth, async (req: Request, res: Response) => {
   try {
     const userID = res.locals.user.id
     const shopCode = req.body.shopCode
@@ -131,7 +131,7 @@ router.post('/payment/qr', userAuth, async (req: Request, res: Response) => {
 })
 
 // Submit a cash payment
-router.post('/payment/cash', userAuth, async (req: Request, res: Response) => {
+router.post('/payment/cash', userFirebaseAuth, async (req: Request, res: Response) => {
   try {
     const userID = res.locals.user.id
     const shopCode = req.body.shopCode
