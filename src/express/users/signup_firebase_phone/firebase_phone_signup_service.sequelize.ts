@@ -61,7 +61,6 @@ export default class SequelizeFirebasePhoneSignupService {
 }
 
 type FirebasePhoneSignupPayload = {
-  firebaseToken: string
   phone: string
 }
 
