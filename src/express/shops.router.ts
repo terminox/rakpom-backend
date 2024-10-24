@@ -53,6 +53,47 @@ router.patch('/profiles/me', shopAuth, (req: Request, res: Response) => {
   router.handle(req, res)
 })
 
+router.get('/transactions', (req: Request, res: Response) => {
+  // TODO
+  res.status(200).json(response([
+    {
+      "title": "ตัดผมฟรี 1",
+      "description": "ตัดผมฟรี สำหรับลูกค้าใหม่",
+      "dateString": "12/09/2556",
+      "amountString": "฿150",
+      "imageURL": "https://unsplash.com/photos/grayscale-photo"
+    },
+    {
+      "title": "ตัดผมฟรี 2",
+      "description": "ตัดผมฟรี สำหรับลูกค้าใหม่",
+      "dateString": "12/09/2556",
+      "amountString": "฿150",
+      "imageURL": "https://unsplash.com/photos/grayscale-photo"
+    },
+    {
+      "title": "ตัดผมฟรี 3",
+      "description": "ตัดผมฟรี สำหรับลูกค้าใหม่",
+      "dateString": "12/09/2556",
+      "amountString": "฿150",
+      "imageURL": "https://unsplash.com/photos/grayscale-photo"
+    },
+    {
+      "title": "ตัดผมฟรี 4",
+      "description": "ตัดผมฟรี สำหรับลูกค้าใหม่",
+      "dateString": "12/09/2556",
+      "amountString": "฿150",
+      "imageURL": "https://unsplash.com/photos/grayscale-photo"
+    },
+    {
+      "title": "ตัดผมฟรี 4",
+      "description": "ตัดผมฟรี สำหรับลูกค้าใหม่",
+      "dateString": "12/09/2556",
+      "amountString": "฿150",
+      "imageURL": "https://unsplash.com/photos/grayscale-photo"
+    }
+  ]))
+})
+
 // View pending booking requests
 router.get('/booking-requests', shopAuth, async (req: Request, res: Response) => {
   try {
@@ -88,5 +129,18 @@ router.post('/booking-requests/:id/accept', shopAuth, async (req: Request, res: 
     res.status(400).json(response(null, err as Error))
   }
 })
+
+router.get('/notifications', (req: Request, res: Response) => {
+  // TODO
+})
+
+router.get('/balance-info-items', (req: Request, res: Response) => {
+  // TODO
+})
+
+router.get('/withdraw-history-items', (req: Request, res: Response) => {
+  // TODO
+})
+
 
 export default router
