@@ -4,20 +4,15 @@ import parsePhoneNumber from 'libphonenumber-js'
 import { AuthenticationService, AuthPayload, AuthenticatedUser } from './core'
 
 import FirebasePhoneAuthItem from '../../../sequelize/models/firebase_phone_auth_item'
-import UserProfile from '../../../sequelize/models/user_profile'
+import Shop from '../../../sequelize/models/shop'
 
 type Implements<T, U extends T> = U
 
-type User = Implements<AuthenticatedUser, {
+type AuthenticatedShop = Implements<AuthenticatedUser, {
   id: string
-  email: string
-  memberID: string | null
-  fullName: string | null
-  gender: string | null
-  phoneNumber: string | null
 }>
 
-export default class SequelizeUserFirebaseAuthService implements AuthenticationService {
+export default class SequelizeShopPhoneAuthService implements AuthenticationService {
 
   private sequelize: Sequelize
 
@@ -33,18 +28,13 @@ export default class SequelizeUserFirebaseAuthService implements AuthenticationS
       throw new Error('User profile not found') // TODO
     }
 
-    const profile = await UserProfile.findOne({ where: { id: authItem.authorizableID } })
+    const profile = await Shop.findOne({ where: { id: authItem.authorizableID } })
     if (profile == null) {
       throw new Error('User profile not found') // TODO
     }
 
-    const user: User = {
+    const user: AuthenticatedShop = {
       id: profile.id,
-      email: profile.email,
-      memberID: String(profile.memberID),
-      fullName: profile.fullName,
-      gender: profile.gender,
-      phoneNumber: profile.phoneNumber,
     }
 
     return user
