@@ -24,31 +24,7 @@ import SequelizeCashPaymentService from './payment/cash/cash_payment_service.seq
 
 const router = Router()
 
-// // TODO: - Deprecate this route in favor of Firebase
-// router.post('/login', (req: Request, res: Response) => {
-//   const router = LoginRouter.makeDefaultRouter()
-//   router.handle(req, res)
-// })
-
-// // TODO: - Deprecate this route in favor of Firebase
-// router.post('/otps', (req: Request, res: Response) => {
-//   const router = OTPRouter.makeDefaultRouter()
-//   router.handle(req, res)
-// })
-
-// // TODO: - Deprecate this route in favor of Firebase
-// router.post('/signup', (req: Request, res: Response) => {
-//   const router = SignupRouter.makeDefaultRouter()
-//   router.handle(req, res)
-// })
-
-// // TODO: - Deprecate this route in favor of Firebase
-// router.post('/signup/phone', (req: Request, res: Response) => {
-//   const router = PhoneSignupRouter.makeDefaultRouter()
-//   router.handle(req, res)
-// })
-
-router.post('/signup/firebase/phone', async (req: Request, res: Response) => {
+router.post('/signup/phone', async (req: Request, res: Response) => {
   try {
     const phone = req.body.phone
     const service = new SequelizeFirebasePhoneSignupService(sequelize)
@@ -78,6 +54,20 @@ router.get('/profiles/me', userFirebaseAuth, (req: Request, res: Response) => {
 
 router.patch('/profiles/me', userFirebaseAuth, (req: Request, res: Response) => {
   // TODO
+})
+
+router.get('/prizes', userFirebaseAuth, (req: Request, res: Response) => {
+  // TODO
+  res.status(200).json(response([
+    {
+      title: 'รหัสงวดวันที่ 20 ม.ค. 66',
+      value: '2 1 1'
+    },
+    {
+      title: 'รหัสงวดวันที่ 02 ม.ค. 66',
+      value: '5 9 2'
+    }
+  ]))
 })
 
 router.post('/booking-requests', userFirebaseAuth, (req: Request, res: Response) => {

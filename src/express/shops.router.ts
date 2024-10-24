@@ -13,35 +13,23 @@ import ShopProfileUpdateRouter from './shops/shop_profile_update/router'
 import OTPRouter from './users/otp/otp.router'
 import PhoneSignupRouter from './users/signup_phone/signup.router'
 
+import SequelizeFirebasePhoneSignupService from './shops/signup_phone/firebase_phone_signup_service.sequelize'
 import SequelizeBookingRequestFetchingService from './shops/booking_requests/booking_request_fetching_service.sequelize'
 import SequelizeRejectBookingRequestService from './shops/reject_booking_request/reject_booking_request_service.sequelize'
 import SequelizeAcceptBookingRequestService from './shops/accept_booking_request/accept_booking_request_service.sequelize'
 
 const router = Router()
 
-// // TODO: - Deprecate this route in favor of Firebase
-// router.post('/login', (req: Request, res: Response) => {
-//   const router = LoginRouter.makeDefaultRouter()
-//   router.handle(req, res)
-// })
-
-// // TODO: - Deprecate this route in favor of Firebase
-// router.post('/otps', (req: Request, res: Response) => {
-//   const router = OTPRouter.makeDefaultRouter()
-//   router.handle(req, res)
-// })
-
-// // TODO: - Deprecate this route in favor of Firebase
-// router.post('/signup', (req: Request, res: Response) => {
-//   const router = SignupRouter.makeDefaultRouter()
-//   router.handle(req, res)
-// })
-
-// // TODO: - Deprecate this route in favor of Firebase
-// router.post('/signup/phone', (req: Request, res: Response) => {
-//   const router = PhoneSignupRouter.makeDefaultRouter()
-//   router.handle(req, res)
-// })
+router.post('/signup/phone', async (req: Request, res: Response) => {
+  try {
+    const phone = req.body.phone
+    const service = new SequelizeFirebasePhoneSignupService(sequelize)
+    const result = await service.signUp({ phone })
+    res.status(200).json(response(result))
+  } catch (err) {
+    res.status(400).json(response(null, err as Error))
+  }
+})
 
 router.post('/signup/google', (req: Request, res: Response) => {
   // TODO
