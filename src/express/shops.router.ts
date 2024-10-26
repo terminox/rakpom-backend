@@ -132,6 +132,38 @@ router.post('/booking-requests/:id/accept', shopAuth, async (req: Request, res: 
 
 router.get('/balance-info-items', shopAuth, (req: Request, res: Response) => {
   // TODO
+  res.status(200).json(response([
+    {
+      title: "ยอดในระบบ",
+      value: "120.00",
+      style: "BOLD"
+    },
+    {
+      title: "ยอดชำระสแกนจ่าย",
+      value: "+100.00",
+      style: "POSITIVE"
+    },
+    {
+      title: "ยอดชำระเงินสด",
+      value: "-20.00",
+      style: "NEGATIVE"
+    },
+    {
+      title: "ยอดคอมมิชชั่น",
+      value: "10%",
+      style: "BOLD"
+    },
+    {
+      title: "ภาษีมูลค่าเพิ่ม",
+      value: "7%",
+      style: "BOLD"
+    },
+    {
+      title: "ยอดที่ถอนได้",
+      value: "0",
+      style: "NEGATIVE"
+    }
+  ]))
 })
 
 router.get('/withdraw-history-items', shopAuth, (req: Request, res: Response) => {
