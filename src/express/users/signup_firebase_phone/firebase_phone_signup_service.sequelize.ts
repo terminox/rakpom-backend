@@ -13,6 +13,8 @@ export default class SequelizeFirebasePhoneSignupService {
   }
 
   async signUp(payload: FirebasePhoneSignupPayload): Promise<FirebasePhoneSignupResult> {
+    console.log('payload', payload)
+
     const formattedPhone = parsePhoneNumber(payload.phone, 'TH')?.formatNational()
     if (formattedPhone == null) {
       throw new Error('Invalid phone number')

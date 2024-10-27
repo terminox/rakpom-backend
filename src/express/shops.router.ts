@@ -109,9 +109,15 @@ router.get('/booking-requests', shopAuth, async (req: Request, res: Response) =>
 // Reject a booking request
 router.post('/booking-requests/:id/reject', shopAuth, async (req: Request, res: Response) => {
   try {
+    // Reject booking
     const id = req.params.id
-    const service = new SequelizeRejectBookingRequestService(sequelize)
-    const result = await service.rejectBookingRequest({ id })
+    const rejectBookingService = new SequelizeRejectBookingRequestService(sequelize)
+    await rejectBookingService.rejectBookingRequest({ id })
+
+    // Fetch bookings
+    const shopID: string = res.locals.user.id
+    const fetchingService = new SequelizeBookingRequestFetchingService(sequelize)
+    const result = await fetchingService.fetchPendingBookingRequests(shopID)
     res.status(200).json(response(result))
   } catch (err) {
     res.status(400).json(response(null, err as Error))
@@ -121,9 +127,15 @@ router.post('/booking-requests/:id/reject', shopAuth, async (req: Request, res: 
 // Accept a booking request
 router.post('/booking-requests/:id/accept', shopAuth, async (req: Request, res: Response) => {
   try {
+    // Accept booking
     const id = req.params.id
-    const service = new SequelizeAcceptBookingRequestService(sequelize)
-    const result = await service.acceptBookingRequest({ id })
+    const acceptBookingService = new SequelizeAcceptBookingRequestService(sequelize)
+    await acceptBookingService.acceptBookingRequest({ id })
+
+    // Fetch bookings
+    const shopID: string = res.locals.user.id
+    const fetchingService = new SequelizeBookingRequestFetchingService(sequelize)
+    const result = await fetchingService.fetchPendingBookingRequests(shopID)
     res.status(200).json(response(result))
   } catch (err) {
     res.status(400).json(response(null, err as Error))
