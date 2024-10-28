@@ -18,12 +18,8 @@ router.get('/transactions/pending', async (req: Request, res: Response) => {
   }
 })
 
-router.get('/transaction/approved', (req: Request, res: Response) => {
-  // TODO
-})
-
 // Endpoint for approving or rejecting pending payment items
-router.post('/payment-payment-logs', async (req: Request, res: Response) => {
+router.post('/payment-approval-logs', async (req: Request, res: Response) => {
   try {
     const paymentLogID = req.body.paymentLogID
     const action = req.body.action

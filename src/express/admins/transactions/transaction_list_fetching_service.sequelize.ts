@@ -1,6 +1,7 @@
-import { Sequelize } from 'sequelize'
+import { Sequelize, Op } from 'sequelize'
 
-import PendingTransaction from '../../../sequelize/models/pending_payment_item'
+import PaymentLog from '../../../sequelize/models/payment_log'
+import PaymentApprovalLog from '../../../sequelize/models/payment_approval_log'
 
 export default class SequelizeTransactionListFetchingService {
   private sequelize: Sequelize
@@ -9,7 +10,15 @@ export default class SequelizeTransactionListFetchingService {
     this.sequelize = sequelize
   }
 
-  async fetchPendingTransactions(): Promise<PendingTransaction[]> {
-    return await PendingTransaction.findAll({})
+  async fetchPendingTransactions(): Promise<PaymentLog[]> {
+    return await PaymentLog.findAll({
+      where: {
+        id: {
+          [Op.notIn]: this.sequelize.literal(
+            '(SELECT "paymentLogID" FROM "PaymentApprovalLogs")'
+          )
+        }
+      }
+    })
   }
 }
