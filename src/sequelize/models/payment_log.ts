@@ -2,18 +2,23 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOpt
 
 import sequelize from '..'
 
-class Transaction extends Model<InferAttributes<Transaction>, InferCreationAttributes<Transaction>> {
+class PaymentLog extends Model<InferAttributes<PaymentLog>, InferCreationAttributes<PaymentLog>> {
   declare id: string
+  declare userID: string
   declare shopID: string
   declare amount: number
-  declare note: string
+  declare type: string
 }
 
-Transaction.init({
+PaymentLog.init({
   id: {
     type: DataTypes.STRING,
     primaryKey: true,
     unique: true,
+  },
+  userID: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   shopID: {
     type: DataTypes.STRING,
@@ -23,13 +28,13 @@ Transaction.init({
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  note: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  }
+  type: {
+    type: DataTypes.ENUM('cash', 'qr', 'point'),
+    allowNull: false,
+  },
 }, {
   sequelize,
-  modelName: 'Transaction',
+  modelName: 'PaymentLog',
 })
 
-export default Transaction
+export default PaymentLog

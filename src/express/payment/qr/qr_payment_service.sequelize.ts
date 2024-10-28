@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize'
 import { ulid } from 'ulid'
 
 import Shop from '../../../sequelize/models/shop'
-import Transaction from '../../../sequelize/models/transaction'
+import PendingPaymentItem from '../../../sequelize/models/pending_payment_item'
 
 export default class SequelizeQRPaymentService {
   private sequelize: Sequelize
@@ -18,7 +18,7 @@ export default class SequelizeQRPaymentService {
       throw new Error('Invalid shop code')
     }
 
-    const payment = await Transaction.create({
+    const payment = await PendingPaymentItem.create({
       id: ulid(),
       userID: payload.userID,
       shopID: shop.id,
