@@ -1,6 +1,9 @@
-import { Sequelize } from 'sequelize'
+import { Sequelize, Transaction as SequelizeTransaction } from 'sequelize'
 import { ulid } from 'ulid'
+
 import PaymentApprovalLog from '../../../sequelize/models/payment_approval_log'
+import PaymentLog from '../../../sequelize/models/payment_log'
+import Transaction from '../../../sequelize/models/transaction'
 
 export default class SequelizePaymentApprovalService {
   private sequelize: Sequelize
@@ -20,16 +23,44 @@ export default class SequelizePaymentApprovalService {
         break
     }
 
-    const approvalLog = await PaymentApprovalLog.create({
-      id: ulid(),
-      paymentLogID: payload.paymentLogID,
-      status
-    })
+    if (payload.action === 'approve') {
+      return this.sequelize.transaction(async (t: SequelizeTransaction) => {
+        const approvalLog = await PaymentApprovalLog.create({
+          id: ulid(),
+          paymentLogID: payload.paymentLogID,
+          status
+        }, { transaction: t })
 
-    return {
-      id: approvalLog.id,
-      paymentLogID: approvalLog.paymentLogID,
-      status: approvalLog.status
+        const paymentLog = await PaymentLog.findByPk(payload.paymentLogID, { transaction: t })
+        if (!paymentLog) {
+          throw new Error('Payment log not found')
+        }
+
+        await Transaction.create({
+          id: ulid(),
+          shopID: paymentLog.shopID,
+          amount: paymentLog.amount,
+          note: paymentLog.type,
+        }, { transaction: t })
+
+        return {
+          id: approvalLog.id,
+          paymentLogID: approvalLog.paymentLogID,
+          status: approvalLog.status
+        }
+      })
+    } else {
+      const approvalLog = await PaymentApprovalLog.create({
+        id: ulid(),
+        paymentLogID: payload.paymentLogID,
+        status
+      })
+
+      return {
+        id: approvalLog.id,
+        paymentLogID: approvalLog.paymentLogID,
+        status: approvalLog.status
+      }
     }
   }
 }
