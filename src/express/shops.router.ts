@@ -17,6 +17,7 @@ import SequelizeFirebasePhoneSignupService from './shops/signup_phone/firebase_p
 import SequelizeBookingRequestFetchingService from './shops/booking_requests/booking_request_fetching_service.sequelize'
 import SequelizeRejectBookingRequestService from './shops/reject_booking_request/reject_booking_request_service.sequelize'
 import SequelizeAcceptBookingRequestService from './shops/accept_booking_request/accept_booking_request_service.sequelize'
+import SequelizeBalanceInfoService from './shops/balance_info/balance_info_service.sequelize'
 
 const router = Router()
 
@@ -142,40 +143,15 @@ router.post('/booking-requests/:id/accept', shopAuth, async (req: Request, res: 
   }
 })
 
-router.get('/balance-info-items', shopAuth, (req: Request, res: Response) => {
-  // TODO
-  res.status(200).json(response([
-    {
-      title: "ยอดในระบบ",
-      value: "120.00",
-      style: "BOLD"
-    },
-    {
-      title: "ยอดชำระสแกนจ่าย",
-      value: "+100.00",
-      style: "POSITIVE"
-    },
-    {
-      title: "ยอดชำระเงินสด",
-      value: "-20.00",
-      style: "NEGATIVE"
-    },
-    {
-      title: "ยอดคอมมิชชั่น",
-      value: "10%",
-      style: "BOLD"
-    },
-    {
-      title: "ภาษีมูลค่าเพิ่ม",
-      value: "7%",
-      style: "BOLD"
-    },
-    {
-      title: "ยอดที่ถอนได้",
-      value: "0",
-      style: "NEGATIVE"
-    }
-  ]))
+router.get('/balance-info-items', shopAuth, async (req: Request, res: Response) => {
+  try {
+    const shopID: string = res.locals.user.id
+    const service = new SequelizeBalanceInfoService(sequelize)
+    const result = await service.fetchBalanceInfo(shopID)
+    res.status(200).json(response(result))
+  } catch (err) {
+    res.status(400).json(response(null, err as Error))
+  }
 })
 
 router.get('/withdraw-history-items', shopAuth, (req: Request, res: Response) => {
