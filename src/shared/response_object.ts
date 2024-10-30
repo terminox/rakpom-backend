@@ -4,5 +4,6 @@ export type ResponseObject<Data> = {
 }
 
 export default function response<Data>(data: Data | null, error: Error | null = null): ResponseObject<Data> {
+  console.error(error)
   return { data, error: error?.message ?? null }
 }
