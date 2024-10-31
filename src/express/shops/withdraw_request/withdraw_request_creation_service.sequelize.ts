@@ -4,7 +4,7 @@ import { ulid } from 'ulid'
 import WithdrawRequestLog from '../../../sequelize/models/withdraw_request_log'
 import Transaction from '../../../sequelize/models/transaction'
 
-export default class SequelizeWithdrawRequestService {
+export default class SequelizeWithdrawRequestCreationService {
   private sequelize: Sequelize
 
   constructor(sequelize: Sequelize) {
