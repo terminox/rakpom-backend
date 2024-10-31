@@ -18,6 +18,7 @@ import SequelizeBookingRequestFetchingService from './shops/booking_requests/boo
 import SequelizeRejectBookingRequestService from './shops/reject_booking_request/reject_booking_request_service.sequelize'
 import SequelizeAcceptBookingRequestService from './shops/accept_booking_request/accept_booking_request_service.sequelize'
 import SequelizeBalanceInfoService from './shops/balance_info/balance_info_service.sequelize'
+import SequelizeWithdrawRequestService from './shops/withdraw_request/withdraw_request_service.sequelize'
 
 const router = Router()
 
@@ -204,5 +205,17 @@ router.get('/reviews', shopAuth, (req: Request, res: Response) => {
   ]))
 })
 
+router.post('/withdraw-requests', shopAuth, async (req: Request, res: Response) => {
+  try {
+    const shopID: string = res.locals.user.id
+    
+    const service = new SequelizeWithdrawRequestService(sequelize)
+    const result = await service.createWithdrawRequest({ shopID })
+    
+    res.status(201).json(response(result))
+  } catch (err) {
+    res.status(400).json(response(null, err as Error))
+  }
+})
 
 export default router
