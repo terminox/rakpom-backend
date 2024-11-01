@@ -25,7 +25,7 @@ export default class SequelizeWithdrawRequestFetchingService {
         minute: '2-digit',
         hour12: false
       }),
-      formattedAmount: `฿${request.amount.toFixed(2)}`
+      formattedAmount: `฿${Number(request.amount).toFixed(2)}`
     }))
   }
 }
