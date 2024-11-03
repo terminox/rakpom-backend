@@ -17,4 +17,7 @@ export interface ShopProfileFetchingService {
 
 export type ShopProfile = {
   id: string
+  fullName: string
+  shopCode: string
+  avatarURL: string
 }

@@ -4,7 +4,7 @@ import sequelize from '..'
 
 class UserProfile extends Model<InferAttributes<UserProfile>, InferCreationAttributes<UserProfile>> {
   declare id: string
-  declare email: string
+  declare email: CreationOptional<string> 
   declare memberID: CreationOptional<number> 
   declare fullName: CreationOptional<string>
   declare gender: CreationOptional<string>
@@ -19,7 +19,6 @@ UserProfile.init({
   },
   email: {
     type: DataTypes.STRING,
-    allowNull: false,
     validate: {
       isEmail: true
     },

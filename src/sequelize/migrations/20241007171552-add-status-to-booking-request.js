@@ -11,6 +11,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.removeColumn('BookingRequests', 'status')
+    // await queryInterface.removeColumn('BookingRequests', 'status')
   }
 };

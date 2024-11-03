@@ -21,6 +21,9 @@ export default class SequelizeShopProfileFetchingService implements ShopProfileF
 
     return {
       id: shop.id,
+      fullName: shop.shopOwnerName,
+      shopCode: shop.shopCode,
+      avatarURL: shop.thumbnailImageURL
     }
   }
 }

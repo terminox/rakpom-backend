@@ -18,36 +18,22 @@ import BookingRequestCreationRouter from './users/booking_request_creation/booki
 import NotificationListRouter from './users/notifications/router'
 import BookingHistoryRouter from './users/booking_history_items/router'
 
+import SequelizeFirebasePhoneSignupService from './users/signup_firebase_phone/firebase_phone_signup_service.sequelize'
 import SequelizeQRPaymentService from './payment/qr/qr_payment_service.sequelize'
 import SequelizeCashPaymentService from './payment/cash/cash_payment_service.sequelize'
 
-import { Sequelize } from 'sequelize'
-
 const router = Router()
 
-// // TODO: - Deprecate this route in favor of Firebase
-// router.post('/login', (req: Request, res: Response) => {
-//   const router = LoginRouter.makeDefaultRouter()
-//   router.handle(req, res)
-// })
-
-// // TODO: - Deprecate this route in favor of Firebase
-// router.post('/otps', (req: Request, res: Response) => {
-//   const router = OTPRouter.makeDefaultRouter()
-//   router.handle(req, res)
-// })
-
-// // TODO: - Deprecate this route in favor of Firebase
-// router.post('/signup', (req: Request, res: Response) => {
-//   const router = SignupRouter.makeDefaultRouter()
-//   router.handle(req, res)
-// })
-
-// // TODO: - Deprecate this route in favor of Firebase
-// router.post('/signup/phone', (req: Request, res: Response) => {
-//   const router = PhoneSignupRouter.makeDefaultRouter()
-//   router.handle(req, res)
-// })
+router.post('/signup/phone', async (req: Request, res: Response) => {
+  try {
+    const phone = req.body.phone
+    const service = new SequelizeFirebasePhoneSignupService(sequelize)
+    const result = await service.signUp({ phone })
+    res.status(200).json(response(result))
+  } catch (err) {
+    res.status(400).json(response(null, err as Error))
+  }
+})
 
 router.post('/signup/google', (req: Request, res: Response) => {
   // TODO
@@ -68,6 +54,20 @@ router.get('/profiles/me', userAuth, (req: Request, res: Response) => {
 
 router.patch('/profiles/me', userAuth, (req: Request, res: Response) => {
   // TODO
+})
+
+router.get('/prizes', userAuth, (req: Request, res: Response) => {
+  // TODO
+  res.status(200).json(response([
+    {
+      title: 'รหัสงวดวันที่ 20 ม.ค. 66',
+      value: '2 1 1'
+    },
+    {
+      title: 'รหัสงวดวันที่ 02 ม.ค. 66',
+      value: '5 9 2'
+    }
+  ]))
 })
 
 router.post('/booking-requests', userAuth, (req: Request, res: Response) => {

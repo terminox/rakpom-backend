@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
+import admin from 'firebase-admin'
 
 import { TokenDecoder, AuthenticationService, AuthPayload, AuthenticatedUser } from './core'
 
-import SequelizeUserAuthService from './user_auth.sequelize'
-import SequelizeShopAuthService from './shop_auth.sequelize'
+import SequelizeUserPhoneAuthService from './user_phone_auth.sequelize'
+import SequelizeShopPhoneAuthService from './shop_phone_auth.sequelize'
 
 import sequelize from '../../../sequelize'
 
@@ -25,11 +26,10 @@ class AuthenticationController {
   }
 }
 
-class JWTDecoder implements TokenDecoder {
+class FirebaseAuthDecoder implements TokenDecoder {
   async decode(token: string): Promise<AuthPayload> {
-    const result = jwt.verify(token, 'secret') as JwtPayload
-    const payload: AuthPayload = { id: result.data.id }
-    return payload
+    const result = await admin.auth().verifyIdToken(token)
+    return { id: result.phone_number ?? '' } 
   }
 }
 
@@ -50,15 +50,15 @@ export function authMiddleware(decoder: TokenDecoder, service: AuthenticationSer
 }
 
 export async function userAuth(req: Request, res: Response, next: NextFunction) {
-  const decoder = new JWTDecoder()
-  const service = new SequelizeUserAuthService(sequelize)
+  const decoder = new FirebaseAuthDecoder()
+  const service = new SequelizeUserPhoneAuthService(sequelize)
   const middleware = authMiddleware(decoder, service)
   return middleware(req, res, next)
 }
 
 export async function shopAuth(req: Request, res: Response, next: NextFunction) {
-  const decoder = new JWTDecoder()
-  const service = new SequelizeShopAuthService(sequelize)
+  const decoder = new FirebaseAuthDecoder()
+  const service = new SequelizeShopPhoneAuthService(sequelize)
   const middleware = authMiddleware(decoder, service)
   return middleware(req, res, next)
 }
