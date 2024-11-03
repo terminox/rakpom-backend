@@ -24,6 +24,6 @@ module.exports = {
         queryInterface.removeColumn('Shops', 'coverImageURL', { transaction: t }),
         queryInterface.removeColumn('Shops', 'thumbnailImageURL', { transaction: t }),
       ])
-    }, { transaction: t })
+    })
   }
 };
