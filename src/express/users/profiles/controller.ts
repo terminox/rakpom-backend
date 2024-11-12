@@ -23,4 +23,5 @@ export type UserProfile = {
   gender: string | null
   phoneNumber: string | null
   avatarURL: string | null
+  totalPoints: number
 }
