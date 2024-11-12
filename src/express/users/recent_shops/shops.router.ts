@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
 import UserShopsController from './shops.controller'
-import SequelizeShopListFetchingService from './shop_list_fetching_service.sequelize'
+import SequelizeRecentShopListFetchingService from './shop_list_fetching_service.sequelize'
 
 import sequelize from '../../../sequelize'
 import response from '../../../shared/response_object'
@@ -26,7 +26,7 @@ export default class UserShopsRouter {
   }
 
   static makeDefaultRouter(): UserShopsRouter {
-    const service = new SequelizeShopListFetchingService(sequelize)
+    const service = new SequelizeRecentShopListFetchingService(sequelize)
     const controller = new UserShopsController(service)
     return new UserShopsRouter(controller)
   }

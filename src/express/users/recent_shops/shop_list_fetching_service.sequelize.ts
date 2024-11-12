@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize'
-import { ShopListFetchingService, Shop } from './shops.controller'
+
+import { ShopListFetchingService } from './shops.controller'
 import RecentBookingItem from '../../../sequelize/models/recent_booking_item'
 import ShopModel from '../../../sequelize/models/shop'
 
@@ -10,7 +11,7 @@ type RecentShop = {
   address: string
 }
 
-export default class SequelizeShopListFetchingService implements ShopListFetchingService {
+export default class SequelizeRecentShopListFetchingService implements ShopListFetchingService {
 
   private sequelize: Sequelize
 
