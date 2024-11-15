@@ -30,8 +30,8 @@ export default class SequelizeBookingHistoryFetchingService implements BookingHi
         shopName: shop.shopName,
         location: shop.address,
         description: "การใช้บริการ: ตัดผม",
-        points: 0, // TODO
-        price: '฿0', // TODO
+        points: 0, // TODO: Remove this one
+        price: `฿${booking.amount}`,
         imageURL: shop.thumbnailImageURL,
       }
     })

@@ -11,7 +11,7 @@ export default class SequelizeRecentBookingService {
     this.sequelize = sequelize
   }
 
-  async createRecentBookingItem(paymentLogID: string): Promise<void> {
+  async createRecentBookingItem(paymentLogID: string, amount: number): Promise<void> {
     const paymentLog = await PaymentLog.findByPk(paymentLogID)
     if (!paymentLog) {
       throw new Error('Payment log not found')
@@ -21,6 +21,7 @@ export default class SequelizeRecentBookingService {
       id: ulid(),
       userID: paymentLog.userID,
       shopID: paymentLog.shopID,
+      amount
     })
   }
 }

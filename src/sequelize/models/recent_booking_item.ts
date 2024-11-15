@@ -7,6 +7,7 @@ class RecentBookingItem extends Model<InferAttributes<RecentBookingItem>, InferC
   declare id: string
   declare userID: string
   declare shopID: string
+  declare amount: number
 }
 
 RecentBookingItem.init({
@@ -26,6 +27,11 @@ RecentBookingItem.init({
       model: Shop,
       key: 'id'
     }
+  },
+  amount: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0
   }
 }, {
   sequelize,
