@@ -33,7 +33,7 @@ export default class BookingRequestsRouter {
         endHour,
         endMinute
       })
-      res.status(200).json(response(result))
+      res.status(201).json(response(result))
     } catch (err) {
       console.log('error: ', err)
       res.status(400).json(response(null, err as Error))

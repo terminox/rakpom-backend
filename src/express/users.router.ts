@@ -21,6 +21,7 @@ import BookingHistoryRouter from './users/booking_history_items/router'
 import SequelizeFirebasePhoneSignupService from './users/signup_firebase_phone/firebase_phone_signup_service.sequelize'
 import SequelizeQRPaymentService from './payment/qr/qr_payment_service.sequelize'
 import SequelizeCashPaymentService from './payment/cash/cash_payment_service.sequelize'
+import SequelizeUserProfileUpdateService from './users/profiles/user_profile_update_service.sequelize'
 
 const router = Router()
 
@@ -29,7 +30,7 @@ router.post('/signup/phone', async (req: Request, res: Response) => {
     const phone = req.body.phone
     const service = new SequelizeFirebasePhoneSignupService(sequelize)
     const result = await service.signUp({ phone })
-    res.status(200).json(response(result))
+    res.status(201).json(response(result))
   } catch (err) {
     res.status(400).json(response(null, err as Error))
   }
@@ -52,8 +53,23 @@ router.get('/profiles/me', userAuth, (req: Request, res: Response) => {
   router.handle(req, res)
 })
 
-router.patch('/profiles/me', userAuth, (req: Request, res: Response) => {
-  // TODO
+router.patch('/profiles/me', userAuth, async (req: Request, res: Response) => {
+  try {
+    const userId = res.locals.user.id
+    const updates = {
+      avatarURL: req.body.avatarURL,
+      fullName: req.body.fullName,
+      gender: req.body.gender?.toLowerCase(),
+      age: req.body.age,
+      phone: req.body.phone,
+      email: req.body.email
+    }
+    const service = new SequelizeUserProfileUpdateService(sequelize)
+    const updatedProfile = await service.updateProfile(userId, updates)
+    res.status(204).json(response(updatedProfile))
+  } catch (err) {
+    res.status(400).json(response(null, err as Error))
+  }
 })
 
 router.get('/prizes', userAuth, (req: Request, res: Response) => {

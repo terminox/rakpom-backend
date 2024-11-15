@@ -21,7 +21,8 @@ export default class SequelizeRecentShopListFetchingService implements ShopListF
 
   async getShops(offset: number, limit: number): Promise<RecentShop[]> {
     const recentBookings = await RecentBookingItem.findAll({
-      limit: 3,
+      limit,
+      offset,
       order: [['createdAt', 'DESC']],
       include: [{
         model: ShopModel,
