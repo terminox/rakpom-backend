@@ -65,8 +65,8 @@ router.patch('/profiles/me', userAuth, async (req: Request, res: Response) => {
       email: req.body.email
     }
     const service = new SequelizeUserProfileUpdateService(sequelize)
-    const updatedProfile = await service.updateProfile(userId, updates)
-    res.status(204).json(response(updatedProfile))
+    await service.updateProfile(userId, updates)
+    res.status(204).end()
   } catch (err) {
     res.status(400).json(response(null, err as Error))
   }
@@ -125,11 +125,12 @@ router.get('/booking_history_items/pages', userAuth, (req: Request, res: Respons
 router.post('/payment/qr', userAuth, async (req: Request, res: Response) => {
   try {
     const userID = res.locals.user.id
+    const imageURL = req.body.imageURL
     const shopCode = req.body.shopCode
     const amount = Number(req.body.amount)
-    const service = new SequelizeCashPaymentService(sequelize)
-    const result = await service.submitCashPayment({ userID, shopCode, amount })
-    res.status(200).json(response(result))
+    const service = new SequelizeQRPaymentService(sequelize)
+    await service.submitQRPayment({ userID, shopCode, amount, imageURL })
+    res.status(201).end()
   } catch (err) {
     res.status(400).json(response(null, err as Error))
   }
@@ -142,8 +143,8 @@ router.post('/payment/cash', userAuth, async (req: Request, res: Response) => {
     const shopCode = req.body.shopCode
     const amount = Number(req.body.amount)
     const service = new SequelizeCashPaymentService(sequelize)
-    const result = await service.submitCashPayment({ userID, shopCode, amount })
-    res.status(200).json(response(result))
+    await service.submitCashPayment({ userID, shopCode, amount })
+    res.status(201).end()
   } catch (err) {
     res.status(400).json(response(null, err as Error))
   }

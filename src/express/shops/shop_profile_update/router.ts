@@ -17,8 +17,8 @@ export default class ShopProfileRouter {
   async handle(req: Request, res: Response) {
     try {
       const shopID: string = res.locals.user.id
-      const shopDetail = await this.controller.updateShopProfile(shopID, req.body as ShopProfileUpdatePayload)
-      res.status(200).json(response(shopDetail))
+      await this.controller.updateShopProfile(shopID, req.body as ShopProfileUpdatePayload)
+      res.status(204).end()
     } catch (err) {
       res.status(400).json(response(null, err as Error))
     }

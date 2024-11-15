@@ -2,7 +2,6 @@ import { Sequelize } from 'sequelize'
 import { ulid } from 'ulid'
 
 import Shop from '../../../sequelize/models/shop'
-import PendingPaymentItem from '../../../sequelize/models/pending_payment_item'
 import PaymentLog from '../../../sequelize/models/payment_log'
 
 export default class SequelizeCashPaymentService {
@@ -19,24 +18,12 @@ export default class SequelizeCashPaymentService {
       throw new Error('Invalid shop code')
     }
 
-    const payment = await this.sequelize.transaction(async (t) => {
-      const pendingPayment = await PendingPaymentItem.create({
-        id: ulid(),
-        userID: payload.userID,
-        shopID: shop.id,
-        amount: payload.amount,
-        type: 'cash'
-      }, { transaction: t })
-
-      await PaymentLog.create({
-        id: ulid(),
-        userID: payload.userID,
-        shopID: shop.id,
-        amount: payload.amount,
-        type: 'cash'
-      }, { transaction: t })
-
-      return pendingPayment
+    const payment = await PaymentLog.create({
+      id: ulid(),
+      userID: payload.userID,
+      shopID: shop.id,
+      amount: payload.amount,
+      type: 'cash'
     })
 
     return {

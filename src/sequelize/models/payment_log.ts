@@ -8,6 +8,7 @@ class PaymentLog extends Model<InferAttributes<PaymentLog>, InferCreationAttribu
   declare shopID: string
   declare amount: number
   declare type: string
+  declare imageURL: CreationOptional<string>
 }
 
 PaymentLog.init({
@@ -31,6 +32,10 @@ PaymentLog.init({
   type: {
     type: DataTypes.ENUM('cash', 'qr', 'point'),
     allowNull: false,
+  },
+  imageURL: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
 }, {
   sequelize,

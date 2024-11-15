@@ -9,6 +9,7 @@ class UserProfile extends Model<InferAttributes<UserProfile>, InferCreationAttri
   declare fullName: CreationOptional<string>
   declare gender: CreationOptional<string>
   declare phoneNumber: CreationOptional<string>
+  declare avatarURL: CreationOptional<string>
 }
 
 UserProfile.init({
@@ -31,7 +32,8 @@ UserProfile.init({
   },
   fullName: DataTypes.STRING,
   gender: DataTypes.ENUM('male', 'female'),
-  phoneNumber: DataTypes.STRING
+  phoneNumber: DataTypes.STRING,
+  avatarURL: DataTypes.STRING
 }, {
   sequelize,
   modelName: 'UserProfile',

@@ -28,7 +28,7 @@ router.post('/signup/phone', async (req: Request, res: Response) => {
     const phone = req.body.phone
     const service = new SequelizeFirebasePhoneSignupService(sequelize)
     const result = await service.signUp({ phone })
-    res.status(200).json(response(result))
+    res.status(201).json(response(result))
   } catch (err) {
     res.status(400).json(response(null, err as Error))
   }
