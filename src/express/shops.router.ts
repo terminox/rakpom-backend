@@ -20,6 +20,7 @@ import SequelizeAcceptBookingRequestService from './shops/accept_booking_request
 import SequelizeBalanceInfoService from './shops/balance_info/balance_info_service.sequelize'
 import SequelizeWithdrawRequestCreationService from './shops/withdraw_request/withdraw_request_creation_service.sequelize'
 import SequelizeWithdrawRequestFetchingService from './shops/withdraw_request/withdraw_request_fetching_service.sequelize'
+import SequelizeTransactionFetchingService from './shops/transactions/transaction_fetching_service.sequelize'
 
 const router = Router()
 
@@ -56,45 +57,15 @@ router.patch('/profiles/me', shopAuth, (req: Request, res: Response) => {
   router.handle(req, res)
 })
 
-router.get('/transactions', shopAuth, (req: Request, res: Response) => {
-  // TODO
-  res.status(200).json(response([
-    {
-      "title": "ตัดผมฟรี 1",
-      "description": "ตัดผมฟรี สำหรับลูกค้าใหม่",
-      "dateString": "12/09/2556",
-      "amountString": "฿150",
-      "imageURL": "https://unsplash.com/photos/grayscale-photo"
-    },
-    {
-      "title": "ตัดผมฟรี 2",
-      "description": "ตัดผมฟรี สำหรับลูกค้าใหม่",
-      "dateString": "12/09/2556",
-      "amountString": "฿150",
-      "imageURL": "https://unsplash.com/photos/grayscale-photo"
-    },
-    {
-      "title": "ตัดผมฟรี 3",
-      "description": "ตัดผมฟรี สำหรับลูกค้าใหม่",
-      "dateString": "12/09/2556",
-      "amountString": "฿150",
-      "imageURL": "https://unsplash.com/photos/grayscale-photo"
-    },
-    {
-      "title": "ตัดผมฟรี 4",
-      "description": "ตัดผมฟรี สำหรับลูกค้าใหม่",
-      "dateString": "12/09/2556",
-      "amountString": "฿150",
-      "imageURL": "https://unsplash.com/photos/grayscale-photo"
-    },
-    {
-      "title": "ตัดผมฟรี 4",
-      "description": "ตัดผมฟรี สำหรับลูกค้าใหม่",
-      "dateString": "12/09/2556",
-      "amountString": "฿150",
-      "imageURL": "https://unsplash.com/photos/grayscale-photo"
-    }
-  ]))
+router.get('/transactions', shopAuth, async (req: Request, res: Response) => {
+  try {
+    const shopID: string = res.locals.user.id
+    const service = new SequelizeTransactionFetchingService(sequelize)
+    const transactions = await service.fetchAllTransactions(shopID)
+    res.status(200).json(response(transactions))
+  } catch (err) {
+    res.status(400).json(response(null, err as Error))
+  }
 })
 
 // View pending booking requests

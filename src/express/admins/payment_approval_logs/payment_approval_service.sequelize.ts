@@ -27,6 +27,7 @@ export default class SequelizePaymentApprovalService {
 
       await Transaction.create({
         id: ulid(),
+        userID: paymentLog.userID,
         shopID: paymentLog.shopID,
         amount: paymentLog.amount,
         note: paymentLog.type,
