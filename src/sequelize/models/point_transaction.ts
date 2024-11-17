@@ -1,4 +1,4 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize'
+import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize'
 
 import sequelize from '..'
 
@@ -6,6 +6,7 @@ class PointTransaction extends Model<InferAttributes<PointTransaction>, InferCre
   declare id: string
   declare value: number
   declare userID: string
+  declare createdAt: CreationOptional<Date>
 }
 
 PointTransaction.init({
@@ -25,6 +26,10 @@ PointTransaction.init({
       model: 'UserProfiles',
       key: 'id'
     }
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false
   }
 }, {
   sequelize,

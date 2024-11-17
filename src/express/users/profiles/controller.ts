@@ -15,6 +15,12 @@ export interface UserProfileFetchingService {
   getUserProfile(id: string): Promise<UserProfile>
 }
 
+export type UserProfilePoint = {
+  id: string
+  value: number
+  dateString: string
+}
+
 export type UserProfile = {
   id: string
   email: string
@@ -24,4 +30,5 @@ export type UserProfile = {
   phoneNumber: string | null
   avatarURL: string | null
   totalPoints: number
+  points: UserProfilePoint[]
 }

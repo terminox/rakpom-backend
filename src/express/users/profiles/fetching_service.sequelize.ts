@@ -4,6 +4,7 @@ import { Sequelize } from 'sequelize'
 import { UserProfileFetchingService, UserProfile } from './controller'
 
 import SequelizeUserProfile from '../../../sequelize/models/user_profile'
+import PointTransaction from '../../../sequelize/models/point_transaction'
 
 export default class SequelizeUserProfileFetchingService implements UserProfileFetchingService {
 
@@ -22,6 +23,12 @@ export default class SequelizeUserProfileFetchingService implements UserProfileF
       throw new Error('User profile not found') // TODO
     }
 
+    const pointTransactions = await PointTransaction.findAll({
+      where: { userID: id }
+    })
+
+    const totalPoints = pointTransactions.reduce((sum, point) => sum + point.value, 0)
+
     return {
       id: profile.id,
       email: profile.email,
@@ -30,7 +37,18 @@ export default class SequelizeUserProfileFetchingService implements UserProfileF
       gender: profile.gender,
       phoneNumber: profile.phoneNumber,
       avatarURL: profile.avatarURL,
-      totalPoints: 1200 // TODO
+      totalPoints: totalPoints,
+      points: pointTransactions.map((point) => ({
+        id: point.id,
+        value: point.value,
+        dateString: point.createdAt.toLocaleString('th-TH', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      }))
     }
   }
 }

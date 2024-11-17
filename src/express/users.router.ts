@@ -111,6 +111,10 @@ router.get('/shops/:id/reviews', userAuth, (req: Request, res: Response) => {
   router.handle(req, res)
 })
 
+router.post('/reviews', userAuth, (req: Request, res: Response) => {
+  // TODO
+})
+
 router.get('/notifications/pages', userAuth, (req: Request, res: Response) => {
   const router = NotificationListRouter.makeDefaultRouter()
   router.handle(req, res)
