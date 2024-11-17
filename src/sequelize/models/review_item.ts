@@ -3,8 +3,8 @@ import sequelize from '..'
 
 class ReviewItem extends Model<InferAttributes<ReviewItem>, InferCreationAttributes<ReviewItem>> {
   declare id: string
-  declare userID: number
-  declare shopID: number
+  declare userID: string
+  declare shopID: string
   declare score: number
   declare content: string
   declare createdAt: CreationOptional<Date>
@@ -18,11 +18,11 @@ ReviewItem.init({
     unique: true,
   },
   userID: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   shopID: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   score: {

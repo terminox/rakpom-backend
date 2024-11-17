@@ -10,11 +10,11 @@ module.exports = {
         unique: true,
       },
       userID: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       shopID: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       score: {

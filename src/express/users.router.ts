@@ -22,6 +22,7 @@ import SequelizeFirebasePhoneSignupService from './users/signup_firebase_phone/f
 import SequelizeQRPaymentService from './payment/qr/qr_payment_service.sequelize'
 import SequelizeCashPaymentService from './payment/cash/cash_payment_service.sequelize'
 import SequelizeUserProfileUpdateService from './users/profiles/user_profile_update_service.sequelize'
+import SequelizeReviewCreationService from './users/reviews/review_creation_service.sequelize'
 
 const router = Router()
 
@@ -111,8 +112,16 @@ router.get('/shops/:id/reviews', userAuth, (req: Request, res: Response) => {
   router.handle(req, res)
 })
 
-router.post('/reviews', userAuth, (req: Request, res: Response) => {
-  // TODO
+router.post('/reviews', userAuth, async (req: Request, res: Response) => {
+  try {
+    const userID = res.locals.user.id
+    const { shopCode, score, content } = req.body
+    const service = new SequelizeReviewCreationService(sequelize)
+    await service.createReview({ userID, shopCode, score, content })
+    res.status(201).end()
+  } catch (err) {
+    res.status(400).json(response(null, err as Error))
+  }
 })
 
 router.get('/notifications/pages', userAuth, (req: Request, res: Response) => {
