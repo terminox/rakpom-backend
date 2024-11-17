@@ -23,6 +23,7 @@ import SequelizeQRPaymentService from './payment/qr/qr_payment_service.sequelize
 import SequelizeCashPaymentService from './payment/cash/cash_payment_service.sequelize'
 import SequelizeUserProfileUpdateService from './users/profiles/user_profile_update_service.sequelize'
 import SequelizeReviewCreationService from './users/reviews/review_creation_service.sequelize'
+import SequelizePointPaymentService from './payment/points/point_payment_service.sequelize'
 
 const router = Router()
 
@@ -157,6 +158,20 @@ router.post('/payment/cash', userAuth, async (req: Request, res: Response) => {
     const amount = Number(req.body.amount)
     const service = new SequelizeCashPaymentService(sequelize)
     await service.submitCashPayment({ userID, shopCode, amount })
+    res.status(201).end()
+  } catch (err) {
+    res.status(400).json(response(null, err as Error))
+  }
+})
+
+// Submit a point payment
+router.post('/payment/points', userAuth, async (req: Request, res: Response) => {
+  try {
+    const userID = res.locals.user.id
+    const shopCode = req.body.shopCode
+    const amount = Number(req.body.points)
+    const service = new SequelizePointPaymentService(sequelize)
+    await service.submitPointPayment({ userID, shopCode, amount })
     res.status(201).end()
   } catch (err) {
     res.status(400).json(response(null, err as Error))

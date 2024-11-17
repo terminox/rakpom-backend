@@ -24,7 +24,8 @@ export default class SequelizeUserProfileFetchingService implements UserProfileF
     }
 
     const pointTransactions = await PointTransaction.findAll({
-      where: { userID: id }
+      where: { userID: id },
+      order: [['createdAt', 'DESC']]
     })
 
     const totalPoints = pointTransactions.reduce((sum, point) => sum + point.value, 0)

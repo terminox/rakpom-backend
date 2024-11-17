@@ -9,6 +9,7 @@ class TransactionFetchingService {
     try {
       const transactions = await Transaction.findAll({
         where: { shopID },
+        order: [['createdAt', 'DESC']],
         include: [{
           model: UserProfile,
           as: 'UserProfile',
