@@ -12,7 +12,7 @@ export default class SequelizeShopProfileUpdatingService implements ShopProfileU
     this.sequelize = sequelize
   }
 
-  async updateShopProfile(shopID: string, payload: ShopProfileUpdatePayload): Promise<ShopProfile> {
+  async updateShopProfile(shopID: string, payload: ShopProfileUpdatePayload) {
     const [, affectedRows] = await Shop.update(payload, {
       where: { id: shopID },
       returning: true 
@@ -20,17 +20,6 @@ export default class SequelizeShopProfileUpdatingService implements ShopProfileU
 
     if (affectedRows.length === 0) {
       throw new Error(`Shop with ID ${shopID} not found`) // TODO
-    }
-
-    return {
-      id: affectedRows[0].id,
-      shopName: affectedRows[0].shopName,
-      shopOwnerName: affectedRows[0].shopOwnerName,
-      phone: affectedRows[0].phone,
-      bankName: affectedRows[0].bankName,
-      bankAccountNumber: affectedRows[0].bankAccountNumber,
-      juniorPriceTHB: affectedRows[0].juniorPriceTHB,
-      seniorPriceTHB: affectedRows[0].seniorPriceTHB,
     }
   }
 }

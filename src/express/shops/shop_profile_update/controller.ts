@@ -6,13 +6,13 @@ export default class ShopProfileController {
     this.service = service
   }
 
-  async updateShopProfile(shopID: string, payload: ShopProfileUpdatePayload): Promise<ShopProfile> {
+  async updateShopProfile(shopID: string, payload: ShopProfileUpdatePayload) {
     return this.service.updateShopProfile(shopID, payload)
   }
 }
 
 export interface ShopProfileUpdatingService {
-  updateShopProfile(shopID: string, payload: ShopProfileUpdatePayload): Promise<ShopProfile>
+  updateShopProfile(shopID: string, payload: ShopProfileUpdatePayload): Promise<void>
 }
 
 export type ShopProfile = {
@@ -34,4 +34,7 @@ export type ShopProfileUpdatePayload = {
   bankAccountNumber?: string
   juniorPriceTHB?: number
   seniorPriceTHB?: number
+  coverImageURL?: string
+  thumbnailImageURL?: string
+  address?: string
 }

@@ -4,8 +4,10 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.addColumn('Shops', 'shopCode', {
-      type: Sequelize.STRING,
-      unique: true
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      unique: true,
+      autoIncrement: true,
     })
   },
 

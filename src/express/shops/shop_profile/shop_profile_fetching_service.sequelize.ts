@@ -22,7 +22,7 @@ export default class SequelizeShopProfileFetchingService implements ShopProfileF
     return {
       id: shop.id,
       fullName: shop.shopOwnerName,
-      shopCode: shop.shopCode,
+      shopCode: shop.shopCode.toString(),
       avatarURL: shop.thumbnailImageURL
     }
   }

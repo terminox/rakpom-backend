@@ -38,7 +38,10 @@ Shop.init({
     type: DataTypes.STRING,
   },
   shopCode: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    unique: true,
+    autoIncrement: true,
   },
   // coordinatesItemID: {
   //   type: DataTypes.STRING,
