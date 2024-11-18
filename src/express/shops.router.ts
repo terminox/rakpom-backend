@@ -128,10 +128,6 @@ router.get('/balance-info-items', shopAuth, async (req: Request, res: Response) 
   }
 })
 
-router.get('/withdraw-history-items', shopAuth, (req: Request, res: Response) => {
-  // TODO
-})
-
 router.get('/reviews', shopAuth, async (req: Request, res: Response) => {
   try {
     const shopID: string = res.locals.user.id

@@ -74,18 +74,30 @@ router.patch('/profiles/me', userAuth, async (req: Request, res: Response) => {
   }
 })
 
-router.get('/prizes', userAuth, (req: Request, res: Response) => {
-  // TODO
-  res.status(200).json(response([
-    {
-      title: 'รหัสงวดวันที่ 20 ม.ค. 66',
-      value: '2 1 1'
-    },
-    {
-      title: 'รหัสงวดวันที่ 02 ม.ค. 66',
-      value: '5 9 2'
-    }
-  ]))
+router.get('/prizes', userAuth, async (req: Request, res: Response) => {
+  try {
+    const apiResponse = await fetch('https://www.glo.or.th/api/lottery/getLatestLottery', {
+      method: 'POST'
+    })
+    const data = await apiResponse.json()
+    const formattedDate = new Date(data.response.date).toLocaleDateString('th-TH', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      calendar: 'buddhist'
+    })
+
+    const result = [{
+      title: `รหัสงวดวันที่ ${formattedDate}`,
+      value: (data.response.data.first.number[0].value || '').slice(-3).split('').join(' ')
+    }]
+
+    console.log(result)
+
+    res.status(200).json(response(result))
+  } catch (err) {
+    res.status(400).json(response(null, err as Error))
+  }
 })
 
 router.post('/booking-requests', userAuth, (req: Request, res: Response) => {
