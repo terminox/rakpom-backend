@@ -25,6 +25,10 @@ export default class SequelizePaymentApprovalService {
         throw new Error('Payment log not found')
       }
 
+      if (paymentLog.type !== 'qr') {
+        throw new Error('Only QR payments can be approved')
+      }
+
       await Transaction.create({
         id: ulid(),
         userID: paymentLog.userID,

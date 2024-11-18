@@ -2,11 +2,11 @@ import { Sequelize } from 'sequelize'
 import { ulid } from 'ulid'
 
 import Transaction from '../../../sequelize/models/transaction'
-import UserProfile from '../../../sequelize/models/user_profile'
 import Shop from '../../../sequelize/models/shop'
 import PaymentLog from '../../../sequelize/models/payment_log'
 import PaymentApprovalLog from '../../../sequelize/models/payment_approval_log'
 import PointTransaction from '../../../sequelize/models/point_transaction'
+import RecentBookingItem from '../../../sequelize/models/recent_booking_item'
 
 class SequelizePointPaymentService {
   constructor(private sequelize: Sequelize) {}
@@ -57,6 +57,14 @@ class SequelizePointPaymentService {
         id: ulid(),
         userID,
         value: -amount,
+      }, { transaction: t })
+
+      // 6. Create recent booking item
+      await RecentBookingItem.create({
+        id: ulid(),
+        userID,
+        shopID: shop.id,
+        amount
       }, { transaction: t })
     })
   }
