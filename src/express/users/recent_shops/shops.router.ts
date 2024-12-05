@@ -16,8 +16,8 @@ export default class UserShopsRouter {
   
   async handle(req: Request, res: Response) {
     try {
-      const offset: number = parseInt(req.query.offset as string)
-      const limit: number = parseInt(req.query.limit as string)
+      const offset: number = parseInt(req.query.offset as string) || 0
+      const limit: number = parseInt(req.query.limit as string) || 3
       const shops = await this.controller.getShops(offset, limit)
       res.status(200).json(response(shops))
     } catch (err) {

@@ -18,7 +18,8 @@ export default class SequelizeBookingRequestFetchingService {
       },
       include: {
         model: UserProfile,
-      } 
+      },
+      order: [['createdAt', 'DESC']]
     })
 
     const pendingRequests: PendingBookingRequest[] = sqPendingRequests.map((sqPendingRequest) => {

@@ -14,7 +14,8 @@ export default class SequelizeShopListFetchingService implements ShopListFetchin
   }
 
   async getShops(offset: number, limit: number): Promise<Shop[]> {
-    const seqShops = await SequelizeShop.findAll({ offset, limit })
+    // const seqShops = await SequelizeShop.findAll({ offset, limit })
+    const seqShops = await SequelizeShop.findAll()
     const shops: Shop[] = _.map(seqShops, (shop: SequelizeShop): Shop => {
       return {
         id: shop.id,

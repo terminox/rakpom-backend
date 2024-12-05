@@ -16,7 +16,9 @@ export default class SequelizeWithdrawRequestCreationService {
 
     // Calculate total balance and withdrawable amount
     const totalAmount = await Transaction.sum('amount', { where: { shopID } })
-    const withdrawableAmount = totalAmount * 0.9 * 0.93 // After commission and VAT
+    const commission = totalAmount * 0.1
+    const vat = commission * 0.07
+    const withdrawableAmount = totalAmount - commission - vat
 
     // Validate there is amount to withdraw
     if (!withdrawableAmount || withdrawableAmount <= 0) {

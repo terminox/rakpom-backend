@@ -38,18 +38,6 @@ router.post('/signup/phone', async (req: Request, res: Response) => {
   }
 })
 
-router.post('/signup/google', (req: Request, res: Response) => {
-  // TODO
-})
-
-router.post('/signup/line', (req: Request, res: Response) => {
-  // TODO
-})
-
-router.post('/signup/apple', (req: Request, res: Response) => {
-  // TODO
-})
-
 router.get('/profiles/me', userAuth, (req: Request, res: Response) => {
   const router = UserProfileRouter.makeDefaultRouter()
   router.handle(req, res)

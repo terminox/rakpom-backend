@@ -73,7 +73,9 @@ export default class SequelizeBalanceInfoService {
 
   private async getWithdrawableBalance(shopID: string): Promise<BalanceInfoItem> {
     const totalAmount = await Transaction.sum('amount', { where: { shopID } })
-    const withdrawableAmount = totalAmount * 0.9 * 0.93 
+    const commission = totalAmount * 0.1
+    const vat = commission * 0.07
+    const withdrawableAmount = totalAmount - commission - vat
     return {
       title: 'ยอดที่ถอนได้',
       value: withdrawableAmount ? withdrawableAmount.toFixed(2) : '0',

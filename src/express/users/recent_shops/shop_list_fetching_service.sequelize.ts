@@ -21,8 +21,6 @@ export default class SequelizeRecentShopListFetchingService implements ShopListF
 
   async getShops(offset: number, limit: number): Promise<RecentShop[]> {
     const recentBookings = await RecentBookingItem.findAll({
-      limit,
-      offset,
       order: [['createdAt', 'DESC']],
       include: [{
         model: ShopModel,
@@ -31,14 +29,22 @@ export default class SequelizeRecentShopListFetchingService implements ShopListF
       }]
     })
 
-    return recentBookings.map(booking => {
+    // Filter out duplicates by shop ID
+    const uniqueShops = new Map()
+    recentBookings.forEach(booking => {
       const shop = booking.get('Shop') as ShopModel
-      return {
-        id: shop.id,
-        name: shop.shopName,
-        imageURL: shop.thumbnailImageURL,
-        address: shop.address
+      if (!uniqueShops.has(shop.id)) {
+        uniqueShops.set(shop.id, {
+          id: shop.id,
+          name: shop.shopName,
+          imageURL: shop.thumbnailImageURL,
+          address: shop.address
+        })
       }
     })
+
+    // Convert to array and apply pagination
+    const shops = Array.from(uniqueShops.values())
+    return shops.slice(offset, offset + limit)
   }
 }

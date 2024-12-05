@@ -18,7 +18,8 @@ export default class Router {
     try {
       const offset: number = parseInt(req.query.offset as string)
       const limit: number = parseInt(req.query.limit as string)
-      const notifications = await this.controller.getNotificationList(offset, limit)
+      const userID: string = res.locals.user.id
+      const notifications = await this.controller.getNotificationList(userID, offset, limit)
       res.status(200).json(response(notifications))
     } catch (err) {
       res.status(400).json(response(null, err as Error))

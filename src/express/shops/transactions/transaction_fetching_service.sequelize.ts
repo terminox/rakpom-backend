@@ -48,6 +48,7 @@ class TransactionFetchingService {
             minute: '2-digit',
             hour12: false
           }),
+          amount: transaction.amount,
           amountString: `฿${transaction.amount}`,
         }
       })
@@ -64,6 +65,7 @@ type TransactionDisplayItem = {
   title: string
   description: string
   dateString: string
+  amount: number
   amountString: string
 }
 

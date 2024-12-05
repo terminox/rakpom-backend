@@ -22,6 +22,8 @@ import SequelizeWithdrawRequestCreationService from './shops/withdraw_request/wi
 import SequelizeWithdrawRequestFetchingService from './shops/withdraw_request/withdraw_request_fetching_service.sequelize'
 import SequelizeTransactionFetchingService from './shops/transactions/transaction_fetching_service.sequelize'
 import SequelizeShopReviewsFetchingService from './users/shop_reviews/shop_reviews_fetching_service.sequelize'
+import SequelizeNotificationPrepService from '../services/notification_prep_service.sequelize'
+import SequelizeSimpleNotificationCreationService from '../services/simple_notification_creation_service.sequelize'
 
 const router = Router()
 
@@ -34,18 +36,6 @@ router.post('/signup/phone', async (req: Request, res: Response) => {
   } catch (err) {
     res.status(400).json(response(null, err as Error))
   }
-})
-
-router.post('/signup/google', (req: Request, res: Response) => {
-  // TODO
-})
-
-router.post('/signup/line', (req: Request, res: Response) => {
-  // TODO
-})
-
-router.post('/signup/apple', (req: Request, res: Response) => {
-  // TODO
 })
 
 router.get('/profiles/me', shopAuth, (req: Request, res: Response) => {
@@ -85,12 +75,20 @@ router.get('/booking-requests', shopAuth, async (req: Request, res: Response) =>
 router.post('/booking-requests/:id/reject', shopAuth, async (req: Request, res: Response) => {
   try {
     // Reject booking
+    const shopID: string = res.locals.user.id
     const id = req.params.id
     const rejectBookingService = new SequelizeRejectBookingRequestService(sequelize)
     await rejectBookingService.rejectBookingRequest({ id })
 
+    // Prepare notification payload and create notification
+    const notificationPrepService = new SequelizeNotificationPrepService(sequelize)
+    const notificationPayload = await notificationPrepService.preparePayload(id, shopID)
+    const notificationCreationService = new SequelizeSimpleNotificationCreationService(sequelize)
+    const title = 'จองร้านตัดผม'
+    const description = `${notificationPayload.shopName} ยกเลิกการจองของคุณ หากต้องการจองอีกครั้ง กรุณาติดต่อทางร้านเพื่อสอบถามเวลา`
+    await notificationCreationService.createNotification({ userID: notificationPayload.userID, title, description })
+
     // Fetch bookings
-    const shopID: string = res.locals.user.id
     const fetchingService = new SequelizeBookingRequestFetchingService(sequelize)
     const result = await fetchingService.fetchPendingBookingRequests(shopID)
     res.status(200).json(response(result))
@@ -103,12 +101,23 @@ router.post('/booking-requests/:id/reject', shopAuth, async (req: Request, res: 
 router.post('/booking-requests/:id/accept', shopAuth, async (req: Request, res: Response) => {
   try {
     // Accept booking
+    const shopID: string = res.locals.user.id
     const id = req.params.id
     const acceptBookingService = new SequelizeAcceptBookingRequestService(sequelize)
     await acceptBookingService.acceptBookingRequest({ id })
 
+    // Prepare notification payload and create notification
+    const notificationPrepService = new SequelizeNotificationPrepService(sequelize)
+    const notificationPayload = await notificationPrepService.preparePayload(id, shopID)
+    const notificationCreationService = new SequelizeSimpleNotificationCreationService(sequelize)
+    const title = 'จองร้านตัดผม'
+    const formattedDate = notificationPayload.date.toLocaleDateString('th-TH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', calendar: 'buddhist' })
+    const startTime = `${String(notificationPayload.startHour).padStart(2, '0')}:${String(notificationPayload.startMinute).padStart(2, '0')}`
+    const endTime = `${String(notificationPayload.endHour).padStart(2, '0')}:${String(notificationPayload.endMinute).padStart(2, '0')}`
+    const description = `${notificationPayload.shopName} ได้ยืนยันการจองของคุณ วันที่ ${formattedDate} เวลา ${startTime} - ${endTime}`
+    await notificationCreationService.createNotification({ userID: notificationPayload.userID, title, description })
+
     // Fetch bookings
-    const shopID: string = res.locals.user.id
     const fetchingService = new SequelizeBookingRequestFetchingService(sequelize)
     const result = await fetchingService.fetchPendingBookingRequests(shopID)
     res.status(200).json(response(result))

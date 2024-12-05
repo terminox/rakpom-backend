@@ -20,10 +20,12 @@ export default class BookingRequestsRouter {
       const userID: string = res.locals.user.id 
       const shopID: string = req.body.shopID
       const date: Date = new Date(req.body.date)
-      const startHour: number = parseInt(req.body.startHour)
-      const startMinute: number = parseInt(req.body.startMinute)
-      const endHour: number = parseInt(req.body.endHour)
-      const endMinute: number = parseInt(req.body.endMinute)
+      const startHour: number = parseInt(req.body.startHour) || 0
+      const startMinute: number = parseInt(req.body.startMinute) || 0
+      const endHour: number = (startHour + 1) % 24
+      const endMinute: number = startMinute
+      // const endHour: number = parseInt(req.body.endHour)
+      // const endMinute: number = parseInt(req.body.endMinute)
       const result = await this.controller.createBookingRequest({
         userID,
         shopID,

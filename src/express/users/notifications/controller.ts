@@ -6,14 +6,14 @@ export default class NotificationListController {
     this.service = service
   }
 
-  async getNotificationList(offset: number, limit: number): Promise<NotificationItem[]> {
-    const items = await this.service.getNotificationList(offset, limit)
+  async getNotificationList(userID: string, offset: number, limit: number): Promise<NotificationItem[]> {
+    const items = await this.service.getNotificationList(userID, offset, limit)
     return items 
   }
 }
 
 export interface NotificationListFetchingService {
-  getNotificationList(offset: number, limit: number): Promise<NotificationItem[]>
+  getNotificationList(userID: string, offset: number, limit: number): Promise<NotificationItem[]>
 }
 
 export type NotificationItem = {
