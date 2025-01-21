@@ -29,7 +29,8 @@ export default class SequelizeBookingRequestFetchingService {
         id: sqPendingRequest.id,
         fullName: (sqPendingRequest as any).UserProfile.fullName,
         date: sqPendingRequest.date.toString(),
-        time: `${sqPendingRequest.startHour}:${startMinute} - ${sqPendingRequest.endHour}:${endMinute}`
+        time: `${sqPendingRequest.startHour}:${startMinute} - ${sqPendingRequest.endHour}:${endMinute}`,
+        imageURL: 'https://unsplash.com/photos/grayscale-photo' // TODO: get image URL from user profile
       }
     })
 
@@ -42,4 +43,5 @@ type PendingBookingRequest = {
   fullName: string
   date: string
   time: string
+  imageURL: string
 }

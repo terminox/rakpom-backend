@@ -20,4 +20,6 @@ export type ShopProfile = {
   fullName: string
   shopCode: string
   avatarURL: string
+  address: string
+  phone: string
 }
